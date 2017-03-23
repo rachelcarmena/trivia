@@ -143,9 +143,9 @@ public class Game {
     public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.currentPlayerName() + " was sent to the penalty box");
-		players.getInPenaltyBox()[players.getCurrentPlayer()] = true;
-		
-		players.setCurrentPlayer(players.getCurrentPlayer() + 1);
+        players.movePlayerToPenaltyBox();
+
+        players.setCurrentPlayer(players.getCurrentPlayer() + 1);
 		if (players.getCurrentPlayer() == players.size()) players.setCurrentPlayer(0);
 		return true;
 	}

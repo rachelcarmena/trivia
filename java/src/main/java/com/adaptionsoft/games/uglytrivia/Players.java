@@ -67,4 +67,8 @@ public class Players {
             this.places[this.currentPlayer] -= 12;
         }
     }
+
+    void movePlayerToPenaltyBox() {
+        inPenaltyBox[currentPlayer] = true;
+    }
 }
