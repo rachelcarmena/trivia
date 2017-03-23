@@ -51,7 +51,7 @@ public class Players {
     }
 
     Object currentPlayerName() {
-        return getPlayers().get(getCurrentPlayer());
+        return names.get(getCurrentPlayer());
     }
 
     void increaseGoldCoins() {
@@ -60,5 +60,13 @@ public class Players {
 
     int currentPlayerGoldCoins() {
         return getPurses()[getCurrentPlayer()];
+    }
+
+    void add(String playerName) {
+        names.add(playerName);
+    }
+
+    int size() {
+        return names.size();
     }
 }

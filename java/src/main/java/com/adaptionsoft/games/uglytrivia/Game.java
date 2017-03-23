@@ -28,20 +28,18 @@ public class Game {
 	}
 
 	public boolean add(String playerName) {
-		
-		
-	    players.getPlayers().add(playerName);
+        players.add(playerName);
 	    players.getPlaces()[howManyPlayers()] = 0;
 	    players.getPurses()[howManyPlayers()] = 0;
 	    players.getInPenaltyBox()[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + players.getPlayers().size());
+	    System.out.println("They are player number " + players.size());
 		return true;
 	}
-	
-	public int howManyPlayers() {
-		return players.getPlayers().size();
+
+    public int howManyPlayers() {
+		return players.size();
 	}
 
 	public void roll(int roll) {
@@ -118,12 +116,12 @@ public class Game {
 				
 				boolean winner = didPlayerWin();
 				players.setCurrentPlayer(players.getCurrentPlayer() + 1);
-				if (players.getCurrentPlayer() == players.getPlayers().size()) players.setCurrentPlayer(0);
+				if (players.getCurrentPlayer() == players.size()) players.setCurrentPlayer(0);
 				
 				return winner;
 			} else {
 				players.setCurrentPlayer(players.getCurrentPlayer() + 1);
-				if (players.getCurrentPlayer() == players.getPlayers().size()) players.setCurrentPlayer(0);
+				if (players.getCurrentPlayer() == players.size()) players.setCurrentPlayer(0);
 				return true;
 			}
 			
@@ -140,7 +138,7 @@ public class Game {
 			
 			boolean winner = didPlayerWin();
 			players.setCurrentPlayer(players.getCurrentPlayer() + 1);
-			if (players.getCurrentPlayer() == players.getPlayers().size()) players.setCurrentPlayer(0);
+			if (players.getCurrentPlayer() == players.size()) players.setCurrentPlayer(0);
 			
 			return winner;
 		}
@@ -152,7 +150,7 @@ public class Game {
 		players.getInPenaltyBox()[players.getCurrentPlayer()] = true;
 		
 		players.setCurrentPlayer(players.getCurrentPlayer() + 1);
-		if (players.getCurrentPlayer() == players.getPlayers().size()) players.setCurrentPlayer(0);
+		if (players.getCurrentPlayer() == players.size()) players.setCurrentPlayer(0);
 		return true;
 	}
 
