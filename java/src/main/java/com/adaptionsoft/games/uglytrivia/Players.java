@@ -57,4 +57,8 @@ public class Players {
     void increaseGoldCoins() {
         getPurses()[getCurrentPlayer()]++;
     }
+
+    int currentPlayerGoldCoins() {
+        return getPurses()[getCurrentPlayer()];
+    }
 }

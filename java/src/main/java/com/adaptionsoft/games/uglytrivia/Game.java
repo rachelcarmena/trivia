@@ -113,7 +113,7 @@ public class Game {
 				players.increaseGoldCoins();
 				System.out.println(players.currentPlayerName()
 						+ " now has "
-						+ players.getPurses()[players.getCurrentPlayer()]
+						+ players.currentPlayerGoldCoins()
 						+ " Gold Coins.");
 				
 				boolean winner = didPlayerWin();
@@ -135,7 +135,7 @@ public class Game {
 			players.increaseGoldCoins();
 			System.out.println(players.currentPlayerName()
 					+ " now has "
-					+ players.getPurses()[players.getCurrentPlayer()]
+					+ players.currentPlayerGoldCoins()
 					+ " Gold Coins.");
 			
 			boolean winner = didPlayerWin();
@@ -158,7 +158,7 @@ public class Game {
 
 
     private boolean didPlayerWin() {
-		return !(players.getPurses()[players.getCurrentPlayer()] == 6);
+		return !(players.currentPlayerGoldCoins() == 6);
 	}
 
 }
