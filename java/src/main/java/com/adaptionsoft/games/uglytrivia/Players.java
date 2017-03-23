@@ -10,10 +10,6 @@ public class Players {
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
-    public int[] getPlaces() {
-        return places;
-    }
-
     public int[] getPurses() {
         return purses;
     }
@@ -39,7 +35,7 @@ public class Players {
     }
 
     int currentPlayerPlace() {
-        return getPlaces()[getCurrentPlayer()];
+        return places[getCurrentPlayer()];
     }
 
     boolean currentPlayerIsInPenaltyBox() {
