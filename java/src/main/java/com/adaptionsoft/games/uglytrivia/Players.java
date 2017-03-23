@@ -14,32 +14,16 @@ public class Players {
         return players;
     }
 
-    public void setPlayers(ArrayList players) {
-        this.players = players;
-    }
-
     public int[] getPlaces() {
         return places;
-    }
-
-    public void setPlaces(int[] places) {
-        this.places = places;
     }
 
     public int[] getPurses() {
         return purses;
     }
 
-    public void setPurses(int[] purses) {
-        this.purses = purses;
-    }
-
     public boolean[] getInPenaltyBox() {
         return inPenaltyBox;
-    }
-
-    public void setInPenaltyBox(boolean[] inPenaltyBox) {
-        this.inPenaltyBox = inPenaltyBox;
     }
 
     public int getCurrentPlayer() {
