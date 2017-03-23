@@ -10,10 +10,6 @@ public class Players {
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
-    public int getCurrentPlayer() {
-        return currentPlayer;
-    }
-
     public boolean isGettingOutOfPenaltyBox() {
         return isGettingOutOfPenaltyBox;
     }
@@ -23,7 +19,7 @@ public class Players {
     }
 
     int currentPlayerPlace() {
-        return places[getCurrentPlayer()];
+        return places[currentPlayer];
     }
 
     boolean currentPlayerIsInPenaltyBox() {
@@ -31,15 +27,15 @@ public class Players {
     }
 
     Object currentPlayerName() {
-        return names.get(getCurrentPlayer());
+        return names.get(currentPlayer);
     }
 
     void increaseGoldCoins() {
-        purses[getCurrentPlayer()]++;
+        purses[currentPlayer]++;
     }
 
     int currentPlayerGoldCoins() {
-        return purses[getCurrentPlayer()];
+        return purses[currentPlayer];
     }
 
     void add(String playerName) {
