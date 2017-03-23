@@ -14,10 +14,6 @@ public class Players {
         return currentPlayer;
     }
 
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
     public boolean isGettingOutOfPenaltyBox() {
         return isGettingOutOfPenaltyBox;
     }
