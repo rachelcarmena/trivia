@@ -67,4 +67,9 @@ public class Players {
     void movePlayerToPenaltyBox() {
         inPenaltyBox[currentPlayer] = true;
     }
+
+    void nextPlayer() {
+        this.currentPlayer = currentPlayer + 1;
+        if (currentPlayer == size()) this.currentPlayer = 0;
+    }
 }
