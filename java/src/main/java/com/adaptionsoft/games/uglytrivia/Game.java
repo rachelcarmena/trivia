@@ -45,7 +45,7 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-        System.out.println(players.getPlayers().get(players.getCurrentPlayer()) + " is the current player");
+        System.out.println(players.currentPlayerName() + " is the current player");
         System.out.println("They have rolled a " + roll);
 
         if(!players.currentPlayerIsInPenaltyBox()) {
@@ -55,13 +55,13 @@ public class Game {
 
         if (shouldGetOutOfPenaltyBox(roll)) {
             players.setGettingOutOfPenaltyBox(true);
-            System.out.println(players.getPlayers().get(players.getCurrentPlayer()) + " is getting out of the penalty box");
+            System.out.println(players.currentPlayerName() + " is getting out of the penalty box");
             move(roll);
             return;
 
         }
 
-        System.out.println(players.getPlayers().get(players.getCurrentPlayer()) + " is not getting out of the penalty box");
+        System.out.println(players.currentPlayerName() + " is not getting out of the penalty box");
         players.setGettingOutOfPenaltyBox(false);
 
     }
@@ -74,7 +74,7 @@ public class Game {
         players.getPlaces()[players.getCurrentPlayer()] = players.currentPlayerPlace() + roll;
         if (players.currentPlayerPlace() > 11) players.getPlaces()[players.getCurrentPlayer()] = players.currentPlayerPlace() - 12;
 
-        System.out.println(players.getPlayers().get(players.getCurrentPlayer())
+        System.out.println(players.currentPlayerName()
                 + "'s new location is "
                 + players.currentPlayerPlace());
         System.out.println("The category is " + currentCategory());
@@ -111,7 +111,7 @@ public class Game {
 			if (players.isGettingOutOfPenaltyBox()) {
 				System.out.println("Answer was correct!!!!");
 				players.getPurses()[players.getCurrentPlayer()]++;
-				System.out.println(players.getPlayers().get(players.getCurrentPlayer())
+				System.out.println(players.currentPlayerName()
 						+ " now has "
 						+ players.getPurses()[players.getCurrentPlayer()]
 						+ " Gold Coins.");
@@ -133,7 +133,7 @@ public class Game {
 		
 			System.out.println("Answer was corrent!!!!");
 			players.getPurses()[players.getCurrentPlayer()]++;
-			System.out.println(players.getPlayers().get(players.getCurrentPlayer())
+			System.out.println(players.currentPlayerName()
 					+ " now has "
 					+ players.getPurses()[players.getCurrentPlayer()]
 					+ " Gold Coins.");
@@ -148,7 +148,7 @@ public class Game {
 
     public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players.getPlayers().get(players.getCurrentPlayer())+ " was sent to the penalty box");
+		System.out.println(players.currentPlayerName() + " was sent to the penalty box");
 		players.getInPenaltyBox()[players.getCurrentPlayer()] = true;
 		
 		players.setCurrentPlayer(players.getCurrentPlayer() + 1);

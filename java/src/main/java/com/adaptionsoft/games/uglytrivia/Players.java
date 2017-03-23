@@ -49,4 +49,8 @@ public class Players {
     boolean currentPlayerIsInPenaltyBox() {
         return getInPenaltyBox()[getCurrentPlayer()];
     }
+
+    Object currentPlayerName() {
+        return getPlayers().get(getCurrentPlayer());
+    }
 }
