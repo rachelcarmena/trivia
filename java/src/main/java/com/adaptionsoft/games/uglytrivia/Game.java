@@ -29,9 +29,6 @@ public class Game {
 
 	public boolean add(String playerName) {
         players.add(playerName);
-	    players.getPlaces()[howManyPlayers()] = 0;
-	    players.getPurses()[howManyPlayers()] = 0;
-	    players.getInPenaltyBox()[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());

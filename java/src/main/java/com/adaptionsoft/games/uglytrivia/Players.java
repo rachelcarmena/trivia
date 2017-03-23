@@ -60,6 +60,9 @@ public class Players {
 
     void add(String playerName) {
         names.add(playerName);
+        places[size()] = 0;
+        purses[size()] = 0;
+        inPenaltyBox[size()] = false;
     }
 
     int size() {
