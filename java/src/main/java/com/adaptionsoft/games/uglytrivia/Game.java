@@ -157,7 +157,7 @@ public class Game {
 	}
 
 
-	private boolean didPlayerWin() {
+    private boolean didPlayerWin() {
 		return !(players.getPurses()[players.getCurrentPlayer()] == 6);
 	}
 

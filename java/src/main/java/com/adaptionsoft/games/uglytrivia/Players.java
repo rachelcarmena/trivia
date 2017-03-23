@@ -3,7 +3,7 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.ArrayList;
 
 public class Players {
-    private ArrayList players = new ArrayList();
+    private ArrayList names = new ArrayList();
     private int[] places = new int[6];
     private int[] purses  = new int[6];
     private boolean[] inPenaltyBox  = new boolean[6];
@@ -11,7 +11,7 @@ public class Players {
     private boolean isGettingOutOfPenaltyBox;
 
     public ArrayList getPlayers() {
-        return players;
+        return names;
     }
 
     public int[] getPlaces() {
