@@ -48,7 +48,7 @@ public class Game {
         System.out.println(players.getPlayers().get(players.getCurrentPlayer()) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if(!players.getInPenaltyBox()[players.getCurrentPlayer()]) {
+        if(!players.currentPlayerIsInPenaltyBox()) {
             move(roll);
             return;
         }
@@ -107,7 +107,7 @@ public class Game {
 	}
 
     public boolean wasCorrectlyAnswered() {
-		if (players.getInPenaltyBox()[players.getCurrentPlayer()]){
+		if (players.currentPlayerIsInPenaltyBox()){
 			if (players.isGettingOutOfPenaltyBox()) {
 				System.out.println("Answer was correct!!!!");
 				players.getPurses()[players.getCurrentPlayer()]++;
@@ -145,8 +145,8 @@ public class Game {
 			return winner;
 		}
 	}
-	
-	public boolean wrongAnswer(){
+
+    public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.getPlayers().get(players.getCurrentPlayer())+ " was sent to the penalty box");
 		players.getInPenaltyBox()[players.getCurrentPlayer()] = true;

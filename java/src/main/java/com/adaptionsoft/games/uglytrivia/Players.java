@@ -45,4 +45,8 @@ public class Players {
     int currentPlayerPlace() {
         return getPlaces()[getCurrentPlayer()];
     }
+
+    boolean currentPlayerIsInPenaltyBox() {
+        return getInPenaltyBox()[getCurrentPlayer()];
+    }
 }
