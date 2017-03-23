@@ -53,4 +53,8 @@ public class Players {
     Object currentPlayerName() {
         return getPlayers().get(getCurrentPlayer());
     }
+
+    void increaseGoldCoins() {
+        getPurses()[getCurrentPlayer()]++;
+    }
 }

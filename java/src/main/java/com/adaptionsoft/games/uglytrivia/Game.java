@@ -110,7 +110,7 @@ public class Game {
 		if (players.currentPlayerIsInPenaltyBox()){
 			if (players.isGettingOutOfPenaltyBox()) {
 				System.out.println("Answer was correct!!!!");
-				players.getPurses()[players.getCurrentPlayer()]++;
+				players.increaseGoldCoins();
 				System.out.println(players.currentPlayerName()
 						+ " now has "
 						+ players.getPurses()[players.getCurrentPlayer()]
@@ -132,7 +132,7 @@ public class Game {
 		} else {
 		
 			System.out.println("Answer was corrent!!!!");
-			players.getPurses()[players.getCurrentPlayer()]++;
+			players.increaseGoldCoins();
 			System.out.println(players.currentPlayerName()
 					+ " now has "
 					+ players.getPurses()[players.getCurrentPlayer()]
