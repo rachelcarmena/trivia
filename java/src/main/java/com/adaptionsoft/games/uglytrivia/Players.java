@@ -41,4 +41,8 @@ public class Players {
     public void setGettingOutOfPenaltyBox(boolean gettingOutOfPenaltyBox) {
         isGettingOutOfPenaltyBox = gettingOutOfPenaltyBox;
     }
+
+    int currentPlayerPlace() {
+        return getPlaces()[getCurrentPlayer()];
+    }
 }

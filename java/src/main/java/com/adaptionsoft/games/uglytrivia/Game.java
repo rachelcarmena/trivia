@@ -71,12 +71,12 @@ public class Game {
     }
 
     private void move(int roll) {
-        players.getPlaces()[players.getCurrentPlayer()] = players.getPlaces()[players.getCurrentPlayer()] + roll;
-        if (players.getPlaces()[players.getCurrentPlayer()] > 11) players.getPlaces()[players.getCurrentPlayer()] = players.getPlaces()[players.getCurrentPlayer()] - 12;
+        players.getPlaces()[players.getCurrentPlayer()] = players.currentPlayerPlace() + roll;
+        if (players.currentPlayerPlace() > 11) players.getPlaces()[players.getCurrentPlayer()] = players.currentPlayerPlace() - 12;
 
         System.out.println(players.getPlayers().get(players.getCurrentPlayer())
                 + "'s new location is "
-                + players.getPlaces()[players.getCurrentPlayer()]);
+                + players.currentPlayerPlace());
         System.out.println("The category is " + currentCategory());
         askQuestion();
     }
@@ -94,19 +94,19 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (players.getPlaces()[players.getCurrentPlayer()] == 0) return "Pop";
-		if (players.getPlaces()[players.getCurrentPlayer()] == 4) return "Pop";
-		if (players.getPlaces()[players.getCurrentPlayer()] == 8) return "Pop";
-		if (players.getPlaces()[players.getCurrentPlayer()] == 1) return "Science";
-		if (players.getPlaces()[players.getCurrentPlayer()] == 5) return "Science";
-		if (players.getPlaces()[players.getCurrentPlayer()] == 9) return "Science";
-		if (players.getPlaces()[players.getCurrentPlayer()] == 2) return "Sports";
-		if (players.getPlaces()[players.getCurrentPlayer()] == 6) return "Sports";
-		if (players.getPlaces()[players.getCurrentPlayer()] == 10) return "Sports";
+		if (players.currentPlayerPlace() == 0) return "Pop";
+		if (players.currentPlayerPlace() == 4) return "Pop";
+		if (players.currentPlayerPlace() == 8) return "Pop";
+		if (players.currentPlayerPlace() == 1) return "Science";
+		if (players.currentPlayerPlace() == 5) return "Science";
+		if (players.currentPlayerPlace() == 9) return "Science";
+		if (players.currentPlayerPlace() == 2) return "Sports";
+		if (players.currentPlayerPlace() == 6) return "Sports";
+		if (players.currentPlayerPlace() == 10) return "Sports";
 		return "Rock";
 	}
 
-	public boolean wasCorrectlyAnswered() {
+    public boolean wasCorrectlyAnswered() {
 		if (players.getInPenaltyBox()[players.getCurrentPlayer()]){
 			if (players.isGettingOutOfPenaltyBox()) {
 				System.out.println("Answer was correct!!!!");
