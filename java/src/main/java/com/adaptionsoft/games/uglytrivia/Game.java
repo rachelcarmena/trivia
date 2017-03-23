@@ -66,8 +66,7 @@ public class Game {
     }
 
     private void move(int roll) {
-        players.getPlaces()[players.getCurrentPlayer()] = players.currentPlayerPlace() + roll;
-        if (players.currentPlayerPlace() > 11) players.getPlaces()[players.getCurrentPlayer()] = players.currentPlayerPlace() - 12;
+        players.moveCurrentPlayer(roll);
 
         System.out.println(players.currentPlayerName()
                 + "'s new location is "

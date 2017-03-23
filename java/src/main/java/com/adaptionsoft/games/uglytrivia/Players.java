@@ -68,4 +68,11 @@ public class Players {
     int size() {
         return names.size();
     }
+
+    void moveCurrentPlayer(int roll) {
+        places[currentPlayer] += roll;
+        if (this.places[this.currentPlayer] > 11){
+            this.places[this.currentPlayer] -= 12;
+        }
+    }
 }
