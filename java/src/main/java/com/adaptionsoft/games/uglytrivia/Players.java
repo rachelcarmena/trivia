@@ -10,10 +10,6 @@ public class Players {
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
-    public int[] getPurses() {
-        return purses;
-    }
-
     public boolean[] getInPenaltyBox() {
         return inPenaltyBox;
     }
@@ -47,11 +43,11 @@ public class Players {
     }
 
     void increaseGoldCoins() {
-        getPurses()[getCurrentPlayer()]++;
+        purses[getCurrentPlayer()]++;
     }
 
     int currentPlayerGoldCoins() {
-        return getPurses()[getCurrentPlayer()];
+        return purses[getCurrentPlayer()];
     }
 
     void add(String playerName) {
