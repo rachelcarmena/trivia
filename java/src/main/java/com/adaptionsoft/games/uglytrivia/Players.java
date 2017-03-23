@@ -10,10 +10,6 @@ public class Players {
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
-    public ArrayList getPlayers() {
-        return names;
-    }
-
     public int[] getPlaces() {
         return places;
     }
