@@ -10,10 +10,6 @@ public class Players {
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
-    public boolean[] getInPenaltyBox() {
-        return inPenaltyBox;
-    }
-
     public int getCurrentPlayer() {
         return currentPlayer;
     }
@@ -35,7 +31,7 @@ public class Players {
     }
 
     boolean currentPlayerIsInPenaltyBox() {
-        return getInPenaltyBox()[getCurrentPlayer()];
+        return inPenaltyBox[currentPlayer];
     }
 
     Object currentPlayerName() {
