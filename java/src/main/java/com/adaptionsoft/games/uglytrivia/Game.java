@@ -57,8 +57,7 @@ public class Game {
 
         if (shouldGetOutOfPenaltyBox(roll)) {
             players.setGettingOutOfPenaltyBox(true);
-            System.out.println(players.currentPlayerName() + " is getting out of the penalty box");
-
+            console.informAboutUserGettingOutOfPenaltyBox(players.currentPlayerName());
             move(roll);
             return;
         }

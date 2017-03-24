@@ -27,4 +27,8 @@ public class Console {
     public void informAboutQuestion(Object question) {
         System.out.println(question);
     }
+
+    public void informAboutUserGettingOutOfPenaltyBox(String currentPlayerName) {
+        System.out.println(currentPlayerName + " is getting out of the penalty box");
+    }
 }

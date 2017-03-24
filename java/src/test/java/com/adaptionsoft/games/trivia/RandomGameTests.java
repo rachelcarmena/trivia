@@ -23,6 +23,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class RandomGameTests {
 
     private static final int EVEN_ROLL = 2;
+    private static final int ODD_ROLL = 3;
     private static final String PLAYER_NAME = "ALVARO";
     private static final int ANY_ROLL = 10;
     private static final Object FIRST_QUESTION = "Question 0";
@@ -63,6 +64,26 @@ public class RandomGameTests {
         verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
         verify(console).informAboutTheRole(ANY_ROLL);
         verify(players).moveCurrentPlayer(ANY_ROLL);
+        verify(console).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
+        verify(console).informAboutCategory(category);
+        verify(console).informAboutQuestion(category + " " + FIRST_QUESTION);
+    }
+
+    @Test
+    @Parameters({"0, Pop", "4, Pop", "8, Pop", "1, Science", "5, Science", "9, Science", "2, Sports", "6, Sports", "10, Sports", "3, Rock"})
+    public void should_move_roll_when_player_should_get_out_of_penalty_box(int currentPlayerPlace, String category) {
+        Game aGame = new Game(players, console);
+        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+        given(players.currentPlayerPlace()).willReturn(currentPlayerPlace);
+        given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
+
+        aGame.roll(ODD_ROLL);
+
+        verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
+        verify(console).informAboutTheRole(ODD_ROLL);
+        verify(players).setGettingOutOfPenaltyBox(true);
+        verify(console).informAboutUserGettingOutOfPenaltyBox(PLAYER_NAME);
+        verify(players).moveCurrentPlayer(ODD_ROLL);
         verify(console).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
         verify(console).informAboutCategory(category);
         verify(console).informAboutQuestion(category + " " + FIRST_QUESTION);
