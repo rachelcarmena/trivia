@@ -32,9 +32,20 @@ public class Questions {
     }
 
     String currentCategory(int currentPlayerPlace) {
-        if (currentPlayerPlace == 0 || currentPlayerPlace == 4 || currentPlayerPlace == 8) return "Pop";
-        if (currentPlayerPlace == 1 || currentPlayerPlace == 5 || currentPlayerPlace == 9) return "Science";
-        if (currentPlayerPlace == 2 || currentPlayerPlace == 6 || currentPlayerPlace == 10) return "Sports";
+        switch (currentPlayerPlace) {
+            case 0:
+            case 4:
+            case 8:
+                return "Pop";
+            case 1:
+            case 5:
+            case 9:
+                return "Science";
+            case 2:
+            case 6:
+            case 10:
+                return "Sports";
+        }
         return "Rock";
     }
 }
