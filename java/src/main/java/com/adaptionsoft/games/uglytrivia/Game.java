@@ -59,26 +59,26 @@ public class Game {
     private void move(int roll) {
         players.moveCurrentPlayer(roll);
         console.informAboutNewLocation(players.currentPlayerName(), players.currentPlayerPlace());
-        console.informAboutCategory(currentCategory());
+        console.informAboutCategory(currentCategory(players.currentPlayerPlace()));
         askQuestion();
     }
 
     private void askQuestion() {
-        String category = currentCategory();
+        String category = currentCategory(players.currentPlayerPlace());
         Object question = questions.getQuestionAndRemoveFromList(category);
         console.informAboutQuestion(question);
     }
 
-    private String currentCategory() {
-        if (players.currentPlayerPlace() == 0) return "Pop";
-        if (players.currentPlayerPlace() == 4) return "Pop";
-        if (players.currentPlayerPlace() == 8) return "Pop";
-        if (players.currentPlayerPlace() == 1) return "Science";
-        if (players.currentPlayerPlace() == 5) return "Science";
-        if (players.currentPlayerPlace() == 9) return "Science";
-        if (players.currentPlayerPlace() == 2) return "Sports";
-        if (players.currentPlayerPlace() == 6) return "Sports";
-        if (players.currentPlayerPlace() == 10) return "Sports";
+    private String currentCategory(int currentPlayerPlace) {
+        if (currentPlayerPlace == 0) return "Pop";
+        if (currentPlayerPlace == 4) return "Pop";
+        if (currentPlayerPlace == 8) return "Pop";
+        if (currentPlayerPlace == 1) return "Science";
+        if (currentPlayerPlace == 5) return "Science";
+        if (currentPlayerPlace == 9) return "Science";
+        if (currentPlayerPlace == 2) return "Sports";
+        if (currentPlayerPlace == 6) return "Sports";
+        if (currentPlayerPlace == 10) return "Sports";
         return "Rock";
     }
 
