@@ -3,6 +3,12 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.LinkedList;
 
 public class Questions {
+    public static final String POP = "Pop";
+    public static final String SCIENCE = "Science";
+    public static final String SPORTS = "Sports";
+    public static final String ROCK = "Rock";
+    public static final String QUESTION_TEXT = " Question ";
+
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
@@ -10,22 +16,26 @@ public class Questions {
 
     public Questions() {
         for (int i = 0; i < 50; i++) {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
-            rockQuestions.addLast("Rock Question " + i);
+            popQuestions.addLast(createQuestion(i, POP));
+            scienceQuestions.addLast((createQuestion(i, SCIENCE)));
+            sportsQuestions.addLast((createQuestion(i, SPORTS)));
+            rockQuestions.addLast(createQuestion(i, ROCK));
         }
+    }
+
+    private String createQuestion(int questionNumber, String category) {
+        return category + QUESTION_TEXT + questionNumber;
     }
 
     Object getQuestionAndRemoveFromList(String category) {
         switch (category) {
-            case "Pop":
+            case POP:
                 return popQuestions.removeFirst();
-            case "Science":
+            case SCIENCE:
                 return scienceQuestions.removeFirst();
-            case "Sports":
+            case SPORTS:
                 return sportsQuestions.removeFirst();
-            case "Rock":
+            case ROCK:
                 return rockQuestions.removeFirst();
         }
         return "";
@@ -36,16 +46,16 @@ public class Questions {
             case 0:
             case 4:
             case 8:
-                return "Pop";
+                return POP;
             case 1:
             case 5:
             case 9:
-                return "Science";
+                return SCIENCE;
             case 2:
             case 6:
             case 10:
-                return "Sports";
+                return SPORTS;
         }
-        return "Rock";
+        return ROCK;
     }
 }
