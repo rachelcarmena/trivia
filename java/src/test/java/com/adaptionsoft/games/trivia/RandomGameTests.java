@@ -14,17 +14,14 @@ public class RandomGameTests {
     public void play_a_single_game() {
         long seed = 1L;
 
-
         Random random = new Random(3L);
-        for(int i=0; i<500; i++){
+        for (int i = 0; i < 500; i++) {
             playGame(random.nextLong());
         }
-
     }
 
     private void playGame(long seed) {
         final MockSystemOutput systemOutput = MockSystemOutput.inject();
-
 
         Game aGame = new Game();
 
@@ -38,7 +35,6 @@ public class RandomGameTests {
 
         boolean notAWinner;
         do {
-
             aGame.roll(rand.nextInt(5) + 1);
 
             if (rand.nextInt(9) == 7) {
@@ -48,7 +44,7 @@ public class RandomGameTests {
             }
         } while (notAWinner);
 
-        try(
+        try (
                 FileWriter fw = new FileWriter(filename, false);
                 BufferedWriter bw = new BufferedWriter(fw)) {
             try {
@@ -57,8 +53,6 @@ public class RandomGameTests {
                 e.printStackTrace();
             }
         } catch (IOException e) {
-
-
         }
     }
 }
