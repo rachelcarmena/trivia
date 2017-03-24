@@ -27,6 +27,7 @@ public class RandomGameTests {
     private static final String PLAYER_NAME = "ALVARO";
     private static final int ANY_ROLL = 10;
     private static final Object FIRST_QUESTION = "Question 0";
+    
     @Mock
     Players players;
     @Mock
