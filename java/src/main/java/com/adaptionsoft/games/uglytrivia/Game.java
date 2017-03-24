@@ -73,23 +73,20 @@ public class Game {
 
     private void move(int roll) {
         players.moveCurrentPlayer(roll);
-
-        System.out.println(players.currentPlayerName()
-                + "'s new location is "
-                + players.currentPlayerPlace());
-        System.out.println("The category is " + currentCategory());
+        console.informAboutNewLocation(players.currentPlayerName(), players.currentPlayerPlace());
+        console.informAboutCategory(currentCategory());
         askQuestion();
     }
 
     private void askQuestion() {
         if (currentCategory() == "Pop")
-            System.out.println(popQuestions.removeFirst());
+            console.informAboutQuestion(popQuestions.removeFirst());
         if (currentCategory() == "Science")
-            System.out.println(scienceQuestions.removeFirst());
+            console.informAboutQuestion(scienceQuestions.removeFirst());
         if (currentCategory() == "Sports")
-            System.out.println(sportsQuestions.removeFirst());
+            console.informAboutQuestion(sportsQuestions.removeFirst());
         if (currentCategory() == "Rock")
-            System.out.println(rockQuestions.removeFirst());
+            console.informAboutQuestion(rockQuestions.removeFirst());
     }
 
     private String currentCategory() {

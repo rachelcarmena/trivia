@@ -19,7 +19,7 @@ public class Players {
         isGettingOutOfPenaltyBox = gettingOutOfPenaltyBox;
     }
 
-    int currentPlayerPlace() {
+    public int currentPlayerPlace() {
         return places[currentPlayer];
     }
 
@@ -50,7 +50,7 @@ public class Players {
         return names.size();
     }
 
-    void moveCurrentPlayer(int roll) {
+    public void moveCurrentPlayer(int roll) {
         places[currentPlayer] += roll;
         if (this.places[this.currentPlayer] > 11){
             this.places[this.currentPlayer] -= 12;

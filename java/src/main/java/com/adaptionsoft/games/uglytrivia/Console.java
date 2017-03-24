@@ -13,4 +13,18 @@ public class Console {
     public void informAboutTheCurrentPlayer(String currentPlayerName) {
         System.out.println(currentPlayerName + " is the current player");
     }
+
+    public void informAboutNewLocation(String currentPlayerName, int currentPlayerPlace) {
+        System.out.println(currentPlayerName
+                + "'s new location is "
+                + currentPlayerPlace);
+    }
+
+    public void informAboutCategory(String currentCategory) {
+        System.out.println("The category is " + currentCategory);
+    }
+
+    public void informAboutQuestion(Object question) {
+        System.out.println(question);
+    }
 }
