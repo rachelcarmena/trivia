@@ -11,7 +11,7 @@ import java.util.Random;
 public class RandomGameTests {
 
     @Test
-    public void play_a_single_game() {
+    public void play_several_games() {
         long seed = 1L;
 
         Random random = new Random(3L);
