@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.Random;
 
 public class RandomGameTests {
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    private Object currentPlayer;
 
     @Test
     public void play_a_single_game() {
@@ -28,7 +26,7 @@ public class RandomGameTests {
         final MockSystemOutput systemOutput = MockSystemOutput.inject();
 
 
-        Game aGame = new TestGame();
+        Game aGame = new Game();
 
         aGame.add("Chet");
         aGame.add("Pat");
@@ -61,12 +59,6 @@ public class RandomGameTests {
         } catch (IOException e) {
 
 
-        }
-    }
-
-    private class TestGame extends Game {
-        protected Object getCurrentPlayer() {
-            return currentPlayer;
         }
     }
 }
