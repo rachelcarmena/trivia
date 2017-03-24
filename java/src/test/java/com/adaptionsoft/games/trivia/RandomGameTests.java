@@ -3,6 +3,7 @@ package com.adaptionsoft.games.trivia;
 import com.adaptionsoft.games.uglytrivia.Console;
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Players;
+import com.adaptionsoft.games.uglytrivia.Questions;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Before;
@@ -34,15 +35,21 @@ public class RandomGameTests {
     Players players;
     @Mock
     Console console;
+    private Game aGame;
+
+    private Game getGame(Players players) {
+        return new Game(players, console, new Questions());
+    }
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+        aGame = getGame(players);
     }
 
     @Test
     public void should_inform_when_player_added() {
-        Game aGame = new Game(new Players(), console);
+        aGame = getGame(new Players());
 
         assertThat(aGame.add(PLAYER_NAME), is(true));
 
@@ -52,7 +59,6 @@ public class RandomGameTests {
 
     @Test
     public void should_keep_a_player_in_penalty_box() {
-        Game aGame = new Game(players, console);
         given(players.currentPlayerName()).willReturn(PLAYER_NAME);
         given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
 
@@ -67,7 +73,6 @@ public class RandomGameTests {
     @Test
     @Parameters({"0, Pop", "4, Pop", "8, Pop", "1, Science", "5, Science", "9, Science", "2, Sports", "6, Sports", "10, Sports", "3, Rock"})
     public void should_move_roll_when_player_not_in_penalty_box(int currentPlayerPlace, String category) {
-        Game aGame = new Game(players, console);
         given(players.currentPlayerName()).willReturn(PLAYER_NAME);
         given(players.currentPlayerPlace()).willReturn(currentPlayerPlace);
         given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
@@ -85,7 +90,6 @@ public class RandomGameTests {
     @Test
     @Parameters({"0, Pop", "4, Pop", "8, Pop", "1, Science", "5, Science", "9, Science", "2, Sports", "6, Sports", "10, Sports", "3, Rock"})
     public void should_move_roll_when_player_should_get_out_of_penalty_box(int currentPlayerPlace, String category) {
-        Game aGame = new Game(players, console);
         given(players.currentPlayerName()).willReturn(PLAYER_NAME);
         given(players.currentPlayerPlace()).willReturn(currentPlayerPlace);
         given(players.currentPlayerIsInPenaltyBox()).willReturn(true);

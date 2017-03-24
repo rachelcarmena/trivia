@@ -1,33 +1,19 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.LinkedList;
-
 public class Game {
 
+    private Questions questions;
     private Players players;
     private Console console;
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
 
     public Game() {
-        this(new Players(), new Console());
+        this(new Players(), new Console(), new Questions());
     }
 
-    public Game(Players players, Console console) {
+    public Game(Players players, Console console, Questions questions) {
         this.players = players;
         this.console = console;
-        for (int i = 0; i < 50; i++) {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
-            rockQuestions.addLast(createRockQuestion(i));
-        }
-    }
-
-    public String createRockQuestion(int index) {
-        return "Rock Question " + index;
+        this.questions = questions;
     }
 
     public boolean isPlayable() {
@@ -79,13 +65,13 @@ public class Game {
 
     private void askQuestion() {
         if (currentCategory() == "Pop")
-            console.informAboutQuestion(popQuestions.removeFirst());
+            console.informAboutQuestion(questions.popQuestions.removeFirst());
         if (currentCategory() == "Science")
-            console.informAboutQuestion(scienceQuestions.removeFirst());
+            console.informAboutQuestion(questions.scienceQuestions.removeFirst());
         if (currentCategory() == "Sports")
-            console.informAboutQuestion(sportsQuestions.removeFirst());
+            console.informAboutQuestion(questions.sportsQuestions.removeFirst());
         if (currentCategory() == "Rock")
-            console.informAboutQuestion(rockQuestions.removeFirst());
+            console.informAboutQuestion(questions.rockQuestions.removeFirst());
     }
 
     private String currentCategory() {
