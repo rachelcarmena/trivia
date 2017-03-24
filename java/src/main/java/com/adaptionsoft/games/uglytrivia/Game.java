@@ -5,18 +5,19 @@ import java.util.LinkedList;
 public class Game {
 
     private Players players;
+    private Console console;
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
-    private TracerBullet tracerBullet;
 
     public Game() {
-        this(new Players());
+        this(new Players(), new Console());
     }
 
-    public Game(Players players) {
+    public Game(Players players, Console console) {
         this.players = players;
+        this.console = console;
         for (int i = 0; i < 50; i++) {
             popQuestions.addLast("Pop Question " + i);
             scienceQuestions.addLast(("Science Question " + i));
@@ -67,23 +68,21 @@ public class Game {
     }
 
     private void informAboutGettingOutOfPenaltyBox() {
-        tracerBullet.informAboutGettingOutOfPenaltyBox();
-        System.out.println(players.currentPlayerName() + " is getting out of the penalty box");
+        console.informAboutGettingOutOfPenaltyBox(players.currentPlayerName());
+
     }
 
     private void informAboutNotToGetOutOfPenaltyBox() {
-        tracerBullet.informAboutNotToGetOutOFPenaltyBox();
-        System.out.println(players.currentPlayerName() + " is not getting out of the penalty box");
+        console.informAboutNotToGetOutOFPenaltyBox(players.currentPlayerName());
+
     }
 
     private void informAboutTheRoll(int roll) {
-        tracerBullet.informAboutTheRole();
-        System.out.println("They have rolled a " + roll);
+        console.informAboutTheRole(roll);
     }
 
     private void informAboutTheCurrentPlayer() {
-        tracerBullet.informAboutTheCurrentPlayer();
-        System.out.println(players.currentPlayerName() + " is the current player");
+        console.informAboutTheCurrentPlayer(players.currentPlayerName());
     }
 
     private boolean shouldGetOutOfPenaltyBox(int roll) {
@@ -166,12 +165,7 @@ public class Game {
         return true;
     }
 
-
     private boolean didPlayerWin() {
         return !(players.currentPlayerGoldCoins() == 6);
-    }
-
-    public void setTracerBullet(TracerBullet tracerBullet) {
-        this.tracerBullet = tracerBullet;
     }
 }
