@@ -59,13 +59,14 @@ public class Game {
     private void move(int roll) {
         players.moveCurrentPlayer(roll);
         console.informAboutNewLocation(players.currentPlayerName(), players.currentPlayerPlace());
-        console.informAboutCategory(questions.currentCategory(players.currentPlayerPlace()));
-        askQuestion();
+
+        String currentCategory = questions.currentCategory(players.currentPlayerPlace());
+        console.informAboutCategory(currentCategory);
+        askQuestion(currentCategory);
     }
 
-    private void askQuestion() {
-        String category = questions.currentCategory(players.currentPlayerPlace());
-        Object question = questions.getQuestionAndRemoveFromList(category);
+    private void askQuestion(String currentCategory) {
+        Object question = questions.getQuestionAndRemoveFromList(currentCategory);
         console.informAboutQuestion(question);
     }
 
