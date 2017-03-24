@@ -73,12 +73,9 @@ public class Game {
     public boolean wasCorrectlyAnswered() {
         if (players.currentPlayerIsInPenaltyBox()) {
             if (players.isGettingOutOfPenaltyBox()) {
-                System.out.println("Answer was correct!!!!");
+                console.informAboutCorrectAnswer();
                 players.increaseGoldCoins();
-                System.out.println(players.currentPlayerName()
-                        + " now has "
-                        + players.currentPlayerGoldCoins()
-                        + " Gold Coins.");
+                console.informAboutGoldCoins(players.currentPlayerName(), players.currentPlayerGoldCoins());
 
                 boolean winner = didPlayerWin();
                 players.nextPlayer();
@@ -89,12 +86,9 @@ public class Game {
                 return true;
             }
         } else {
-            System.out.println("Answer was correct!!!!");
+            console.informAboutCorrectAnswer();
             players.increaseGoldCoins();
-            System.out.println(players.currentPlayerName()
-                    + " now has "
-                    + players.currentPlayerGoldCoins()
-                    + " Gold Coins.");
+            console.informAboutGoldCoins(players.currentPlayerName(), players.currentPlayerGoldCoins());
 
             boolean winner = didPlayerWin();
             players.nextPlayer();

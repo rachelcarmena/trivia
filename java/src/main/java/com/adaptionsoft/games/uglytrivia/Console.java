@@ -39,4 +39,15 @@ public class Console {
     public void informAboutNumberOfPlayers(int size) {
         System.out.println("They are player number " + size);
     }
+
+    public void informAboutCorrectAnswer() {
+        System.out.println("Answer was correct!!!!");
+    }
+
+    public void informAboutGoldCoins(String currentPlayerName, int currentPlayerGoldCoins) {
+        System.out.println(currentPlayerName
+                + " now has "
+                + currentPlayerGoldCoins
+                + " Gold Coins.");
+    }
 }
