@@ -70,8 +70,6 @@ public class RandomGameTests {
 
     @Test
     public void play_several_games() {
-        long seed = 1L;
-
         Random random = new Random(3L);
         for (int i = 0; i < 500; i++) {
             playGame(random.nextLong());
