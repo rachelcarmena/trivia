@@ -22,11 +22,11 @@ public class Players {
         return places[currentPlayer];
     }
 
-    boolean currentPlayerIsInPenaltyBox() {
+    public boolean currentPlayerIsInPenaltyBox() {
         return inPenaltyBox[currentPlayer];
     }
 
-    Object currentPlayerName() {
+    public Object currentPlayerName() {
         return names.get(currentPlayer);
     }
 

@@ -9,6 +9,7 @@ public class Game {
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
+    private TracerBullet tracerBullet;
 
     public Game() {
         this(new Players());
@@ -45,8 +46,8 @@ public class Game {
     }
 
     public void roll(int roll) {
-        System.out.println(players.currentPlayerName() + " is the current player");
-        System.out.println("They have rolled a " + roll);
+        informAboutTheCurrentPlayer();
+        informAboutTheRoll(roll);
 
         if (!players.currentPlayerIsInPenaltyBox()) {
             move(roll);
@@ -55,15 +56,34 @@ public class Game {
 
         if (shouldGetOutOfPenaltyBox(roll)) {
             players.setGettingOutOfPenaltyBox(true);
-            System.out.println(players.currentPlayerName() + " is getting out of the penalty box");
+            informAboutGettingOutOfPenaltyBox();
             move(roll);
             return;
-
         }
 
-        System.out.println(players.currentPlayerName() + " is not getting out of the penalty box");
+        informAboutNotToGetOutOfPenaltyBox();
         players.setGettingOutOfPenaltyBox(false);
 
+    }
+
+    private void informAboutGettingOutOfPenaltyBox() {
+        tracerBullet.informAboutGettingOutOfPenaltyBox();
+        System.out.println(players.currentPlayerName() + " is getting out of the penalty box");
+    }
+
+    private void informAboutNotToGetOutOfPenaltyBox() {
+        tracerBullet.informAboutNotToGetOutOFPenaltyBox();
+        System.out.println(players.currentPlayerName() + " is not getting out of the penalty box");
+    }
+
+    private void informAboutTheRoll(int roll) {
+        tracerBullet.informAboutTheRole();
+        System.out.println("They have rolled a " + roll);
+    }
+
+    private void informAboutTheCurrentPlayer() {
+        tracerBullet.informAboutTheCurrentPlayer();
+        System.out.println(players.currentPlayerName() + " is the current player");
     }
 
     private boolean shouldGetOutOfPenaltyBox(int roll) {
@@ -151,4 +171,7 @@ public class Game {
         return !(players.currentPlayerGoldCoins() == 6);
     }
 
+    public void setTracerBullet(TracerBullet tracerBullet) {
+        this.tracerBullet = tracerBullet;
+    }
 }

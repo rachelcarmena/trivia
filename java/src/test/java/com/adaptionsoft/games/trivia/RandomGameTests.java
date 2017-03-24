@@ -1,14 +1,46 @@
 package com.adaptionsoft.games.trivia;
 
 import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.Players;
+import com.adaptionsoft.games.uglytrivia.TracerBullet;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+
+@RunWith(MockitoJUnitRunner.class)
 public class RandomGameTests {
+
+    private static final int EVEN_ROLL = 2;
+    private static final String PLAYER_NAME = "ALVARO";
+    @Mock
+    Players players;
+
+    @Mock TracerBullet tracerBullet;
+
+    @Test
+    public void should_keep_a_player_in_penalty_box() {
+        Game aGame = new Game(players);
+        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+        given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
+        aGame.setTracerBullet(tracerBullet);
+
+        aGame.roll(EVEN_ROLL);
+
+        verify(players).setGettingOutOfPenaltyBox(false);
+        verify(tracerBullet).informAboutTheCurrentPlayer();
+        verify(tracerBullet).informAboutTheRole();
+    }
 
     @Test
     public void play_several_games() {
