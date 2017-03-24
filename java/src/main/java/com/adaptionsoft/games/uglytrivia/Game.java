@@ -47,8 +47,8 @@ public class Game {
     }
 
     public void roll(int roll) {
-        informAboutTheCurrentPlayer();
-        informAboutTheRoll(roll);
+        console.informAboutTheCurrentPlayer(players.currentPlayerName());
+        console.informAboutTheRole(roll);
 
         if (!players.currentPlayerIsInPenaltyBox()) {
             move(roll);
@@ -57,32 +57,14 @@ public class Game {
 
         if (shouldGetOutOfPenaltyBox(roll)) {
             players.setGettingOutOfPenaltyBox(true);
-            informAboutGettingOutOfPenaltyBox();
+            System.out.println(players.currentPlayerName() + " is getting out of the penalty box");
+
             move(roll);
             return;
         }
 
-        informAboutNotToGetOutOfPenaltyBox();
-        players.setGettingOutOfPenaltyBox(false);
-
-    }
-
-    private void informAboutGettingOutOfPenaltyBox() {
-        console.informAboutGettingOutOfPenaltyBox(players.currentPlayerName());
-
-    }
-
-    private void informAboutNotToGetOutOfPenaltyBox() {
         console.informAboutNotToGetOutOFPenaltyBox(players.currentPlayerName());
-
-    }
-
-    private void informAboutTheRoll(int roll) {
-        console.informAboutTheRole(roll);
-    }
-
-    private void informAboutTheCurrentPlayer() {
-        console.informAboutTheCurrentPlayer(players.currentPlayerName());
+        players.setGettingOutOfPenaltyBox(false);
     }
 
     private boolean shouldGetOutOfPenaltyBox(int roll) {
