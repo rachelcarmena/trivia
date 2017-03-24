@@ -39,7 +39,7 @@ public class Players {
         return purses[currentPlayer];
     }
 
-    void add(String playerName) {
+    public void add(String playerName) {
         names.add(playerName);
         places[size()] = 0;
         purses[size()] = 0;

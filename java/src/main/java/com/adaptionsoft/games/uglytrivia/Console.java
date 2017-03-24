@@ -31,4 +31,12 @@ public class Console {
     public void informAboutUserGettingOutOfPenaltyBox(String currentPlayerName) {
         System.out.println(currentPlayerName + " is getting out of the penalty box");
     }
+
+    public void informAboutAddedPlayer(String playerName) {
+        System.out.println(playerName + " was added");
+    }
+
+    public void informAboutNumberOfPlayers(int size) {
+        System.out.println("They are player number " + size);
+    }
 }

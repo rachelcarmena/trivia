@@ -37,8 +37,8 @@ public class Game {
     public boolean add(String playerName) {
         players.add(playerName);
 
-        System.out.println(playerName + " was added");
-        System.out.println("They are player number " + players.size());
+        console.informAboutAddedPlayer(playerName);
+        console.informAboutNumberOfPlayers(players.size());
         return true;
     }
 

@@ -15,6 +15,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -36,6 +38,16 @@ public class RandomGameTests {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+    }
+
+    @Test
+    public void should_inform_when_player_added() {
+        Game aGame = new Game(new Players(), console);
+
+        assertThat(aGame.add(PLAYER_NAME), is(true));
+
+        verify(console).informAboutAddedPlayer(PLAYER_NAME);
+        verify(console).informAboutNumberOfPlayers(1);
     }
 
     @Test
