@@ -64,14 +64,9 @@ public class Game {
     }
 
     private void askQuestion() {
-        if (currentCategory() == "Pop")
-            console.informAboutQuestion(questions.popQuestions.removeFirst());
-        if (currentCategory() == "Science")
-            console.informAboutQuestion(questions.scienceQuestions.removeFirst());
-        if (currentCategory() == "Sports")
-            console.informAboutQuestion(questions.sportsQuestions.removeFirst());
-        if (currentCategory() == "Rock")
-            console.informAboutQuestion(questions.rockQuestions.removeFirst());
+        String category = currentCategory();
+        Object question = questions.getQuestionAndRemoveFromList(category);
+        console.informAboutQuestion(question);
     }
 
     private String currentCategory() {
