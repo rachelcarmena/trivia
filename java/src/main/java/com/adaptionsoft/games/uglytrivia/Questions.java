@@ -32,15 +32,9 @@ public class Questions {
     }
 
     String currentCategory(int currentPlayerPlace) {
-        if (currentPlayerPlace == 0) return "Pop";
-        if (currentPlayerPlace == 4) return "Pop";
-        if (currentPlayerPlace == 8) return "Pop";
-        if (currentPlayerPlace == 1) return "Science";
-        if (currentPlayerPlace == 5) return "Science";
-        if (currentPlayerPlace == 9) return "Science";
-        if (currentPlayerPlace == 2) return "Sports";
-        if (currentPlayerPlace == 6) return "Sports";
-        if (currentPlayerPlace == 10) return "Sports";
+        if (currentPlayerPlace == 0 || currentPlayerPlace == 4 || currentPlayerPlace == 8) return "Pop";
+        if (currentPlayerPlace == 1 || currentPlayerPlace == 5 || currentPlayerPlace == 9) return "Science";
+        if (currentPlayerPlace == 2 || currentPlayerPlace == 6 || currentPlayerPlace == 10) return "Sports";
         return "Rock";
     }
 }
