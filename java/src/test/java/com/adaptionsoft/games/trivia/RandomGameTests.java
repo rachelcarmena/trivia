@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(JUnitParamsRunner.class)
@@ -30,7 +31,9 @@ public class RandomGameTests {
     private static final String PLAYER_NAME = "ALVARO";
     private static final int ANY_ROLL = 10;
     private static final Object FIRST_QUESTION = "Question 0";
-    
+    public static final int MAX_GOLD_COINS_NUMBER = 6;
+    public static final int NOT_MAX_GOLD_COINS_NUMBER = 5;
+
     @Mock
     Players players;
     @Mock
@@ -104,6 +107,70 @@ public class RandomGameTests {
         verify(console).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
         verify(console).informAboutCategory(category);
         verify(console).informAboutQuestion(category + " " + FIRST_QUESTION);
+    }
+
+    @Test
+    public void should_move_to_next_player_when_correctly_answered_and_current_player_is_in_penalty_box_and_not_getting_out() {
+        given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
+        given(players.isGettingOutOfPenaltyBox()).willReturn(false);
+
+        assertThat(aGame.wasCorrectlyAnswered(), is(true));
+        verify(players).nextPlayer();
+        verifyNoMoreInteractions(console);
+    }
+
+    @Test
+    public void should_play_and_not_winner_when_correctly_answered_and_current_player_not_in_penalty_box_and_not_six_coins() {
+        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+        given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
+        given(players.currentPlayerGoldCoins()).willReturn(NOT_MAX_GOLD_COINS_NUMBER);
+
+        assertThat(aGame.wasCorrectlyAnswered(), is(true));
+        verify(console).informAboutCorrectAnswer();
+        verify(players).increaseGoldCoins();
+        verify(console).informAboutGoldCoins(PLAYER_NAME, NOT_MAX_GOLD_COINS_NUMBER);
+        verify(players).nextPlayer();
+    }
+
+    @Test
+    public void should_play_and_not_winner_when_correctly_answered_and_current_player_getting_out_from_penalty_box_and_not_six_coins() {
+        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+        given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
+        given(players.isGettingOutOfPenaltyBox()).willReturn(true);
+        given(players.currentPlayerGoldCoins()).willReturn(NOT_MAX_GOLD_COINS_NUMBER);
+
+        assertThat(aGame.wasCorrectlyAnswered(), is(true));
+        verify(console).informAboutCorrectAnswer();
+        verify(players).increaseGoldCoins();
+        verify(console).informAboutGoldCoins(PLAYER_NAME, NOT_MAX_GOLD_COINS_NUMBER);
+        verify(players).nextPlayer();
+    }
+
+    @Test
+    public void should_play_and_winner_when_correctly_answered_and_current_player_not_in_penalty_box_and_six_coins() {
+        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+        given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
+        given(players.currentPlayerGoldCoins()).willReturn(MAX_GOLD_COINS_NUMBER);
+
+        assertThat(aGame.wasCorrectlyAnswered(), is(false));
+        verify(console).informAboutCorrectAnswer();
+        verify(players).increaseGoldCoins();
+        verify(console).informAboutGoldCoins(PLAYER_NAME, MAX_GOLD_COINS_NUMBER);
+        verify(players).nextPlayer();
+    }
+
+    @Test
+    public void should_play_and_winner_when_correctly_answered_and_current_player_getting_out_from_penalty_box_and_six_coins() {
+        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+        given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
+        given(players.isGettingOutOfPenaltyBox()).willReturn(true);
+        given(players.currentPlayerGoldCoins()).willReturn(MAX_GOLD_COINS_NUMBER);
+
+        assertThat(aGame.wasCorrectlyAnswered(), is(false));
+        verify(console).informAboutCorrectAnswer();
+        verify(players).increaseGoldCoins();
+        verify(console).informAboutGoldCoins(PLAYER_NAME, MAX_GOLD_COINS_NUMBER);
+        verify(players).nextPlayer();
     }
 
     @Test

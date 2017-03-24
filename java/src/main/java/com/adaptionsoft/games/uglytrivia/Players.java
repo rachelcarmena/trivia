@@ -31,11 +31,11 @@ public class Players {
         return names.get(currentPlayer);
     }
 
-    void increaseGoldCoins() {
+    public void increaseGoldCoins() {
         purses[currentPlayer]++;
     }
 
-    int currentPlayerGoldCoins() {
+    public int currentPlayerGoldCoins() {
         return purses[currentPlayer];
     }
 
@@ -61,7 +61,7 @@ public class Players {
         inPenaltyBox[currentPlayer] = true;
     }
 
-    void nextPlayer() {
+    public void nextPlayer() {
         this.currentPlayer = currentPlayer + 1;
         if (currentPlayer == size()) this.currentPlayer = 0;
     }
