@@ -71,30 +71,19 @@ public class Game {
     }
 
     public boolean wasCorrectlyAnswered() {
-        if (players.currentPlayerIsInPenaltyBox()) {
-            if (players.isGettingOutOfPenaltyBox()) {
-                console.informAboutCorrectAnswer();
-                players.increaseGoldCoins();
-                console.informAboutGoldCoins(players.currentPlayerName(), players.currentPlayerGoldCoins());
-
-                boolean winner = didPlayerWin();
-                players.nextPlayer();
-
-                return winner;
-            } else {
-                players.nextPlayer();
-                return true;
-            }
-        } else {
-            console.informAboutCorrectAnswer();
-            players.increaseGoldCoins();
-            console.informAboutGoldCoins(players.currentPlayerName(), players.currentPlayerGoldCoins());
-
-            boolean winner = didPlayerWin();
+        if (players.currentPlayerIsInPenaltyBox() && !players.isGettingOutOfPenaltyBox()) {
             players.nextPlayer();
-
-            return winner;
+            return true;
         }
+
+        console.informAboutCorrectAnswer();
+        players.increaseGoldCoins();
+        console.informAboutGoldCoins(players.currentPlayerName(), players.currentPlayerGoldCoins());
+
+        boolean notWinner = hasNotMaxGoldCoins();
+        players.nextPlayer();
+
+        return notWinner;
     }
 
     public boolean wrongAnswer() {
@@ -106,7 +95,7 @@ public class Game {
         return true;
     }
 
-    private boolean didPlayerWin() {
-        return !(players.currentPlayerGoldCoins() == 6);
+    private boolean hasNotMaxGoldCoins() {
+        return (players.currentPlayerGoldCoins() < 6);
     }
 }
