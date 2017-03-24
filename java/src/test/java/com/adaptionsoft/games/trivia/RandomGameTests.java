@@ -174,6 +174,17 @@ public class RandomGameTests {
     }
 
     @Test
+    public void should_inform_and_move_player_to_penalty_box_when_wrong_answer() {
+        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+
+        assertThat(aGame.wrongAnswer(), is(true));
+        verify(console).informAboutWrongAnswer();
+        verify(console).informAboutUserGettingInPenaltyBox(PLAYER_NAME);
+        verify(players).movePlayerToPenaltyBox();
+        verify(players).nextPlayer();
+    }
+
+    @Test
     public void play_several_games() {
         Random random = new Random(3L);
         for (int i = 0; i < 500; i++) {

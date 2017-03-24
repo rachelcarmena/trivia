@@ -87,8 +87,8 @@ public class Game {
     }
 
     public boolean wrongAnswer() {
-        System.out.println("Question was incorrectly answered");
-        System.out.println(players.currentPlayerName() + " was sent to the penalty box");
+        console.informAboutWrongAnswer();
+        console.informAboutUserGettingInPenaltyBox(players.currentPlayerName());
         players.movePlayerToPenaltyBox();
 
         players.nextPlayer();

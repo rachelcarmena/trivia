@@ -57,7 +57,7 @@ public class Players {
         }
     }
 
-    void movePlayerToPenaltyBox() {
+    public void movePlayerToPenaltyBox() {
         inPenaltyBox[currentPlayer] = true;
     }
 

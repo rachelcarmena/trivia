@@ -50,4 +50,12 @@ public class Console {
                 + currentPlayerGoldCoins
                 + " Gold Coins.");
     }
+
+    public void informAboutWrongAnswer() {
+        System.out.println("Question was incorrectly answered");
+    }
+
+    public void informAboutUserGettingInPenaltyBox(String currentPlayerName) {
+        System.out.println(currentPlayerName + " was sent to the penalty box");
+    }
 }
