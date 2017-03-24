@@ -89,7 +89,7 @@ public class Game {
                 return true;
             }
         } else {
-            System.out.println("Answer was corrent!!!!");
+            System.out.println("Answer was correct!!!!");
             players.increaseGoldCoins();
             System.out.println(players.currentPlayerName()
                     + " now has "
