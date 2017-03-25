@@ -26,14 +26,13 @@ import static org.mockito.MockitoAnnotations.initMocks;
 @RunWith(JUnitParamsRunner.class)
 public class RandomGameTests {
 
+    public static final int MAX_GOLD_COINS_NUMBER = 6;
+    public static final int NOT_MAX_GOLD_COINS_NUMBER = 5;
     private static final int EVEN_ROLL = 2;
     private static final int ODD_ROLL = 3;
     private static final String PLAYER_NAME = "ALVARO";
     private static final int ANY_ROLL = 10;
     private static final Object FIRST_QUESTION = "Question 0";
-    public static final int MAX_GOLD_COINS_NUMBER = 6;
-    public static final int NOT_MAX_GOLD_COINS_NUMBER = 5;
-
     @Mock
     Players players;
     @Mock
@@ -120,19 +119,6 @@ public class RandomGameTests {
     }
 
     @Test
-    public void should_play_and_not_winner_when_correctly_answered_and_current_player_not_in_penalty_box_and_not_six_coins() {
-        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
-        given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
-        given(players.currentPlayerGoldCoins()).willReturn(NOT_MAX_GOLD_COINS_NUMBER);
-
-        assertThat(aGame.wasCorrectlyAnswered(), is(true));
-        verify(console).informAboutCorrectAnswer();
-        verify(players).increaseGoldCoins();
-        verify(console).informAboutGoldCoins(PLAYER_NAME, NOT_MAX_GOLD_COINS_NUMBER);
-        verify(players).nextPlayer();
-    }
-
-    @Test
     public void should_play_and_not_winner_when_correctly_answered_and_current_player_getting_out_from_penalty_box_and_not_six_coins() {
         given(players.currentPlayerName()).willReturn(PLAYER_NAME);
         given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
@@ -147,15 +133,16 @@ public class RandomGameTests {
     }
 
     @Test
-    public void should_play_and_winner_when_correctly_answered_and_current_player_not_in_penalty_box_and_six_coins() {
+    @Parameters({"0, true", "1, true", "2, true", "3, true", "4, true", "5, true", "6, false"})
+    public void should_play_when_correctly_answered_and_current_player_not_in_penalty_box(int coinsNumber, boolean notWinner) {
         given(players.currentPlayerName()).willReturn(PLAYER_NAME);
         given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
-        given(players.currentPlayerGoldCoins()).willReturn(MAX_GOLD_COINS_NUMBER);
+        given(players.currentPlayerGoldCoins()).willReturn(coinsNumber);
 
-        assertThat(aGame.wasCorrectlyAnswered(), is(false));
+        assertThat(aGame.wasCorrectlyAnswered(), is(notWinner));
         verify(console).informAboutCorrectAnswer();
         verify(players).increaseGoldCoins();
-        verify(console).informAboutGoldCoins(PLAYER_NAME, MAX_GOLD_COINS_NUMBER);
+        verify(console).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
         verify(players).nextPlayer();
     }
 
