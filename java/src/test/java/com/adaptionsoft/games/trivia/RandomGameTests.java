@@ -18,6 +18,7 @@ import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -26,8 +27,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
 @RunWith(JUnitParamsRunner.class)
 public class RandomGameTests {
 
-    public static final int MAX_GOLD_COINS_NUMBER = 6;
-    public static final int NOT_MAX_GOLD_COINS_NUMBER = 5;
     private static final int EVEN_ROLL = 2;
     private static final int ODD_ROLL = 3;
     private static final String PLAYER_NAME = "ALVARO";
@@ -47,6 +46,7 @@ public class RandomGameTests {
     public void setUp() throws Exception {
         initMocks(this);
         aGame = getGame(players);
+        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
     }
 
     @Test
@@ -60,8 +60,7 @@ public class RandomGameTests {
     }
 
     @Test
-    public void should_keep_a_player_in_penalty_box() {
-        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+    public void should_keep_a_player_in_penalty_box_when_even_roll() {
         given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
 
         aGame.roll(EVEN_ROLL);
@@ -74,25 +73,7 @@ public class RandomGameTests {
 
     @Test
     @Parameters({"0, Pop", "4, Pop", "8, Pop", "1, Science", "5, Science", "9, Science", "2, Sports", "6, Sports", "10, Sports", "3, Rock"})
-    public void should_move_roll_when_player_not_in_penalty_box(int currentPlayerPlace, String category) {
-        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
-        given(players.currentPlayerPlace()).willReturn(currentPlayerPlace);
-        given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
-
-        aGame.roll(ANY_ROLL);
-
-        verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(console).informAboutTheRole(ANY_ROLL);
-        verify(players).moveCurrentPlayer(ANY_ROLL);
-        verify(console).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
-        verify(console).informAboutCategory(category);
-        verify(console).informAboutQuestion(category + " " + FIRST_QUESTION);
-    }
-
-    @Test
-    @Parameters({"0, Pop", "4, Pop", "8, Pop", "1, Science", "5, Science", "9, Science", "2, Sports", "6, Sports", "10, Sports", "3, Rock"})
-    public void should_move_roll_when_player_should_get_out_of_penalty_box(int currentPlayerPlace, String category) {
-        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+    public void should_move_when_player_in_penalty_box_and_odd_roll(int currentPlayerPlace, String category) {
         given(players.currentPlayerPlace()).willReturn(currentPlayerPlace);
         given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
 
@@ -109,37 +90,43 @@ public class RandomGameTests {
     }
 
     @Test
-    public void should_move_to_next_player_when_correctly_answered_and_current_player_is_in_penalty_box_and_not_getting_out() {
+    @Parameters({"0, Pop", "4, Pop", "8, Pop", "1, Science", "5, Science", "9, Science", "2, Sports", "6, Sports", "10, Sports", "3, Rock"})
+    public void should_move_when_player_not_in_penalty_box_and_any_roll(int currentPlayerPlace, String category) {
+        given(players.currentPlayerPlace()).willReturn(currentPlayerPlace);
+        given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
+
+        aGame.roll(ANY_ROLL);
+
+        verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
+        verify(console).informAboutTheRole(ANY_ROLL);
+        verify(players).moveCurrentPlayer(ANY_ROLL);
+        verify(console).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
+        verify(console).informAboutCategory(category);
+        verify(console).informAboutQuestion(category + " " + FIRST_QUESTION);
+    }
+
+    @Test
+    public void should_change_to_next_player_when_correctly_answered_and_current_player_in_penalty_box_and_not_getting_out() {
         given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
         given(players.isGettingOutOfPenaltyBox()).willReturn(false);
 
-        assertThat(aGame.wasCorrectlyAnswered(), is(true));
+        boolean notWinner = aGame.wasCorrectlyAnswered();
+
+        assertTrue(notWinner);
         verify(players).nextPlayer();
         verifyNoMoreInteractions(console);
     }
 
     @Test
-    public void should_play_and_not_winner_when_correctly_answered_and_current_player_getting_out_from_penalty_box_and_not_six_coins() {
-        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+    @Parameters({"0, true", "1, true", "2, true", "3, true", "4, true", "5, true", "6, false"})
+    public void should_increase_coins_and_change_to_next_player_when_correctly_answered_and_current_player_getting_out_from_penalty_box(int coinsNumber, boolean notWinnerExpectedValue) {
         given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
         given(players.isGettingOutOfPenaltyBox()).willReturn(true);
-        given(players.currentPlayerGoldCoins()).willReturn(NOT_MAX_GOLD_COINS_NUMBER);
-
-        assertThat(aGame.wasCorrectlyAnswered(), is(true));
-        verify(console).informAboutCorrectAnswer();
-        verify(players).increaseGoldCoins();
-        verify(console).informAboutGoldCoins(PLAYER_NAME, NOT_MAX_GOLD_COINS_NUMBER);
-        verify(players).nextPlayer();
-    }
-
-    @Test
-    @Parameters({"0, true", "1, true", "2, true", "3, true", "4, true", "5, true", "6, false"})
-    public void should_play_when_correctly_answered_and_current_player_not_in_penalty_box(int coinsNumber, boolean notWinner) {
-        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
-        given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
         given(players.currentPlayerGoldCoins()).willReturn(coinsNumber);
 
-        assertThat(aGame.wasCorrectlyAnswered(), is(notWinner));
+        boolean notWinner = aGame.wasCorrectlyAnswered();
+
+        assertThat(notWinner, is(notWinnerExpectedValue));
         verify(console).informAboutCorrectAnswer();
         verify(players).increaseGoldCoins();
         verify(console).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
@@ -147,24 +134,25 @@ public class RandomGameTests {
     }
 
     @Test
-    public void should_play_and_winner_when_correctly_answered_and_current_player_getting_out_from_penalty_box_and_six_coins() {
-        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
-        given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
-        given(players.isGettingOutOfPenaltyBox()).willReturn(true);
-        given(players.currentPlayerGoldCoins()).willReturn(MAX_GOLD_COINS_NUMBER);
+    @Parameters({"0, true", "1, true", "2, true", "3, true", "4, true", "5, true", "6, false"})
+    public void should_increase_coins_and_change_to_next_player_when_correctly_answered_and_current_player_not_in_penalty_box(int coinsNumber, boolean notWinnerExpectedValue) {
+        given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
+        given(players.currentPlayerGoldCoins()).willReturn(coinsNumber);
 
-        assertThat(aGame.wasCorrectlyAnswered(), is(false));
+        boolean notWinner = aGame.wasCorrectlyAnswered();
+
+        assertThat(notWinner, is(notWinnerExpectedValue));
         verify(console).informAboutCorrectAnswer();
         verify(players).increaseGoldCoins();
-        verify(console).informAboutGoldCoins(PLAYER_NAME, MAX_GOLD_COINS_NUMBER);
+        verify(console).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
         verify(players).nextPlayer();
     }
 
     @Test
-    public void should_inform_and_move_player_to_penalty_box_when_wrong_answer() {
-        given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+    public void should_move_player_to_penalty_box_and_change_to_next_player_when_wrong_answer() {
+        boolean notWinner = aGame.wrongAnswer();
 
-        assertThat(aGame.wrongAnswer(), is(true));
+        assertTrue(notWinner);
         verify(console).informAboutWrongAnswer();
         verify(console).informAboutUserGettingInPenaltyBox(PLAYER_NAME);
         verify(players).movePlayerToPenaltyBox();
