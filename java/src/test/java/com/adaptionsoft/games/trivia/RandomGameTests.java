@@ -11,11 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
+import static com.adaptionsoft.games.trivia.StringIsEqualsAsPreviousInMatcher.isEqualsAsPreviousIn;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -160,30 +159,35 @@ public class RandomGameTests {
     }
 
     @Test
-    public void play_several_games() {
-        Random random = new Random(3L);
-        for (int i = 0; i < 500; i++) {
-            playGame(random.nextLong());
-        }
+    @Parameters
+    public void playSeveralGames(long seed) throws IOException {
+        String consoleOutput = playGame(seed);
+        assertThat(consoleOutput, isEqualsAsPreviousIn("/tmp/ugly-trivia/test-" + seed + ".expected"));
     }
 
-    private void playGame(long seed) {
+    public Object[] parametersForPlaySeveralGames() {
+        int numberOfPlays = 500;
+        Object[] params = new Object[numberOfPlays];
+        Random random = new Random(3L);
+        for (int i = 0; i < numberOfPlays; i++) {
+            params[i] = random.nextLong();
+        }
+        return params;
+    }
+
+    private String playGame(long seed) {
         final MockSystemOutput systemOutput = MockSystemOutput.inject();
 
         Game aGame = new Game();
-
         aGame.add("Chet");
         aGame.add("Pat");
         aGame.add("Sue");
 
         Random rand = new Random(seed);
 
-        String filename = "/tmp/ugly-trivia/test-" + seed + ".actual";
-
         boolean notAWinner;
         do {
             aGame.roll(rand.nextInt(5) + 1);
-
             if (rand.nextInt(9) == 7) {
                 notAWinner = aGame.wrongAnswer();
             } else {
@@ -191,15 +195,6 @@ public class RandomGameTests {
             }
         } while (notAWinner);
 
-        try (
-                FileWriter fw = new FileWriter(filename, false);
-                BufferedWriter bw = new BufferedWriter(fw)) {
-            try {
-                bw.write(systemOutput.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (IOException e) {
-        }
+        return systemOutput.toString();
     }
 }
