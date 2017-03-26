@@ -66,7 +66,7 @@ public class RandomGameTests {
 
         verify(players).setGettingOutOfPenaltyBox(false);
         verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(console).informAboutTheRole(EVEN_ROLL);
+        verify(console).informAboutTheRoll(EVEN_ROLL);
         verify(console).informAboutNotToGetOutOFPenaltyBox(PLAYER_NAME);
     }
 
@@ -79,7 +79,7 @@ public class RandomGameTests {
         aGame.roll(ODD_ROLL);
 
         verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(console).informAboutTheRole(ODD_ROLL);
+        verify(console).informAboutTheRoll(ODD_ROLL);
         verify(players).setGettingOutOfPenaltyBox(true);
         verify(console).informAboutUserGettingOutOfPenaltyBox(PLAYER_NAME);
         verify(players).moveCurrentPlayer(ODD_ROLL);
@@ -97,7 +97,7 @@ public class RandomGameTests {
         aGame.roll(ANY_ROLL);
 
         verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(console).informAboutTheRole(ANY_ROLL);
+        verify(console).informAboutTheRoll(ANY_ROLL);
         verify(players).moveCurrentPlayer(ANY_ROLL);
         verify(console).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
         verify(console).informAboutCategory(category);

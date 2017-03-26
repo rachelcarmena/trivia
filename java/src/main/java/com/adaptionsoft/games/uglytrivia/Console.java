@@ -6,7 +6,7 @@ public class Console {
         System.out.println(currentPlayerName + " is not getting out of the penalty box");
     }
 
-    public void informAboutTheRole(int roll) {
+    public void informAboutTheRoll(int roll) {
         System.out.println("They have rolled a " + roll);
     }
 

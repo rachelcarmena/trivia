@@ -34,7 +34,7 @@ public class Game {
 
     public void roll(int roll) {
         console.informAboutTheCurrentPlayer(players.currentPlayerName());
-        console.informAboutTheRole(roll);
+        console.informAboutTheRoll(roll);
 
         if (!players.currentPlayerIsInPenaltyBox()) {
             move(roll);
