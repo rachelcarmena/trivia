@@ -2,6 +2,7 @@ package com.adaptionsoft.games.uglytrivia;
 
 public class Game {
 
+    public static final int MAX_GOLD_COINS = 6;
     private Status status;
     private Questions questions;
     private Players players;
@@ -96,6 +97,6 @@ public class Game {
     }
 
     private boolean hasNotMaxGoldCoins() {
-        return (players.currentPlayerGoldCoins() < 6);
+        return (players.currentPlayerGoldCoins() < MAX_GOLD_COINS);
     }
 }
