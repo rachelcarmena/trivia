@@ -12,28 +12,6 @@ public class Status {
         console.print(currentPlayerName + " is not getting out of the penalty box");
     }
 
-    public void informAboutTheRoll(int roll) {
-        console.print("They have rolled a " + roll);
-    }
-
-    public void informAboutTheCurrentPlayer(String currentPlayerName) {
-        console.print(currentPlayerName + " is the current player");
-    }
-
-    public void informAboutNewLocation(String currentPlayerName, int currentPlayerPlace) {
-        console.print(currentPlayerName
-                + "'s new location is "
-                + currentPlayerPlace);
-    }
-
-    public void informAboutCategory(String currentCategory) {
-        console.print("The category is " + currentCategory);
-    }
-
-    public void informAboutQuestion(Object question) {
-        console.print(question.toString());
-    }
-
     public void informAboutUserGettingOutOfPenaltyBox(String currentPlayerName) {
         console.print(currentPlayerName + " is getting out of the penalty box");
     }
@@ -63,5 +41,18 @@ public class Status {
 
     public void informAboutUserGettingInPenaltyBox(String currentPlayerName) {
         console.print(currentPlayerName + " was sent to the penalty box");
+    }
+
+    public void informAboutLocationCategoryAndQuestion(String playerName, int place, String category, String question) {
+        console.print(playerName
+                + "'s new location is "
+                + place);
+        console.print("The category is " + category);
+        console.print(question);
+    }
+
+    public void informAboutCurrentPlayerAndRoll(String playerName, int roll) {
+        console.print(playerName + " is the current player");
+        console.print("They have rolled a " + roll);
     }
 }

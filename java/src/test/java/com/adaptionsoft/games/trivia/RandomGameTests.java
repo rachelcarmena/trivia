@@ -65,8 +65,7 @@ public class RandomGameTests {
         aGame.roll(EVEN_ROLL);
 
         verify(players).setGettingOutOfPenaltyBox(false);
-        verify(status).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(status).informAboutTheRoll(EVEN_ROLL);
+        verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, EVEN_ROLL);
         verify(status).informAboutNotToGetOutOFPenaltyBox(PLAYER_NAME);
     }
 
@@ -78,14 +77,11 @@ public class RandomGameTests {
 
         aGame.roll(ODD_ROLL);
 
-        verify(status).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(status).informAboutTheRoll(ODD_ROLL);
+        verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, ODD_ROLL);
         verify(players).setGettingOutOfPenaltyBox(true);
         verify(status).informAboutUserGettingOutOfPenaltyBox(PLAYER_NAME);
         verify(players).moveCurrentPlayer(ODD_ROLL);
-        verify(status).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
-        verify(status).informAboutCategory(category);
-        verify(status).informAboutQuestion(category + " " + FIRST_QUESTION);
+        verify(status).informAboutLocationCategoryAndQuestion(PLAYER_NAME, currentPlayerPlace, category, category + " " + FIRST_QUESTION);
     }
 
     @Test
@@ -96,12 +92,9 @@ public class RandomGameTests {
 
         aGame.roll(ANY_ROLL);
 
-        verify(status).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(status).informAboutTheRoll(ANY_ROLL);
+        verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, ANY_ROLL);
         verify(players).moveCurrentPlayer(ANY_ROLL);
-        verify(status).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
-        verify(status).informAboutCategory(category);
-        verify(status).informAboutQuestion(category + " " + FIRST_QUESTION);
+        verify(status).informAboutLocationCategoryAndQuestion(PLAYER_NAME, currentPlayerPlace, category, category + " " + FIRST_QUESTION);
     }
 
     @Test

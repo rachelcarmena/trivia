@@ -34,8 +34,7 @@ public class Game {
     }
 
     public void roll(int roll) {
-        status.informAboutTheCurrentPlayer(players.currentPlayerName());
-        status.informAboutTheRoll(roll);
+        status.informAboutCurrentPlayerAndRoll(players.currentPlayerName(), roll);
 
         if (!players.currentPlayerIsInPenaltyBox()) {
             move(roll);
@@ -59,16 +58,11 @@ public class Game {
 
     private void move(int roll) {
         players.moveCurrentPlayer(roll);
-        status.informAboutNewLocation(players.currentPlayerName(), players.currentPlayerPlace());
 
         String currentCategory = questions.currentCategory(players.currentPlayerPlace());
-        status.informAboutCategory(currentCategory);
-        askQuestion(currentCategory);
-    }
-
-    private void askQuestion(String currentCategory) {
         Object question = questions.getQuestionAndRemoveFromList(currentCategory);
-        status.informAboutQuestion(question);
+
+        status.informAboutLocationCategoryAndQuestion(players.currentPlayerName(), players.currentPlayerPlace(), currentCategory, question.toString());
     }
 
     public boolean wasCorrectlyAnswered() {
