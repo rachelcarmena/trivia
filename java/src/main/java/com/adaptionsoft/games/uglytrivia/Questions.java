@@ -42,8 +42,8 @@ public class Questions {
         return "";
     }
 
-    String currentCategory(int currentPlayerPlace) {
-        switch (currentPlayerPlace) {
+    String currentCategory(int place) {
+        switch (place) {
             case 0:
             case 4:
             case 8:
