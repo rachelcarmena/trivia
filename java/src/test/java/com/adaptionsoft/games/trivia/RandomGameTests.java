@@ -1,9 +1,9 @@
 package com.adaptionsoft.games.trivia;
 
-import com.adaptionsoft.games.uglytrivia.Status;
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Players;
 import com.adaptionsoft.games.uglytrivia.Questions;
+import com.adaptionsoft.games.uglytrivia.Status;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Before;
@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.Random;
 
 import static com.adaptionsoft.games.trivia.StringIsEqualsAsPreviousInMatcher.isEqualsAsPreviousIn;
+import static com.adaptionsoft.games.uglytrivia.Game.MAX_GOLD_COINS;
+import static com.adaptionsoft.games.uglytrivia.Game.PLAYER_PLACE_LIMIT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -70,7 +72,7 @@ public class RandomGameTests {
     }
 
     @Test
-    @Parameters({"0, Pop", "4, Pop", "8, Pop", "1, Science", "5, Science", "9, Science", "2, Sports", "6, Sports", "10, Sports", "3, Rock"})
+    @Parameters(method = "get_pairs_of_place_and_category")
     public void should_move_when_player_in_penalty_box_and_odd_roll(int currentPlayerPlace, String category) {
         given(players.currentPlayerPlace()).willReturn(currentPlayerPlace);
         given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
@@ -85,7 +87,7 @@ public class RandomGameTests {
     }
 
     @Test
-    @Parameters({"0, Pop", "4, Pop", "8, Pop", "1, Science", "5, Science", "9, Science", "2, Sports", "6, Sports", "10, Sports", "3, Rock"})
+    @Parameters(method = "get_pairs_of_place_and_category")
     public void should_move_when_player_not_in_penalty_box_and_any_roll(int currentPlayerPlace, String category) {
         given(players.currentPlayerPlace()).willReturn(currentPlayerPlace);
         given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
@@ -95,6 +97,14 @@ public class RandomGameTests {
         verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, ANY_ROLL);
         verify(players).moveCurrentPlayer(ANY_ROLL);
         verify(status).informAboutLocationCategoryAndQuestion(PLAYER_NAME, currentPlayerPlace, category, category + " " + FIRST_QUESTION);
+    }
+
+    private Object get_pairs_of_place_and_category() {
+        Object[] pairs = new Object[PLAYER_PLACE_LIMIT];
+        for (int index = 0; index < PLAYER_PLACE_LIMIT; index++) {
+            pairs[index] = new Object[]{index, Game.currentCategory(index)};
+        }
+        return pairs;
     }
 
     @Test
@@ -110,7 +120,7 @@ public class RandomGameTests {
     }
 
     @Test
-    @Parameters({"0, true", "1, true", "2, true", "3, true", "4, true", "5, true", "6, false"})
+    @Parameters(method = "get_pairs_of_coins_and_winner")
     public void should_increase_coins_and_change_to_next_player_when_correctly_answered_and_current_player_getting_out_from_penalty_box(int coinsNumber, boolean notWinnerExpectedValue) {
         given(players.currentPlayerIsInPenaltyBox()).willReturn(true);
         given(players.isGettingOutOfPenaltyBox()).willReturn(true);
@@ -126,7 +136,7 @@ public class RandomGameTests {
     }
 
     @Test
-    @Parameters({"0, true", "1, true", "2, true", "3, true", "4, true", "5, true", "6, false"})
+    @Parameters(method = "get_pairs_of_coins_and_winner")
     public void should_increase_coins_and_change_to_next_player_when_correctly_answered_and_current_player_not_in_penalty_box(int coinsNumber, boolean notWinnerExpectedValue) {
         given(players.currentPlayerIsInPenaltyBox()).willReturn(false);
         given(players.currentPlayerGoldCoins()).willReturn(coinsNumber);
@@ -138,6 +148,15 @@ public class RandomGameTests {
         verify(players).increaseGoldCoins();
         verify(status).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
         verify(players).nextPlayer();
+    }
+
+    private Object get_pairs_of_coins_and_winner() {
+        Object[] pairs = new Object[MAX_GOLD_COINS + 1];
+        for (int index = 0; index < MAX_GOLD_COINS; index++) {
+            pairs[index] = new Object[]{index, true};
+        }
+        pairs[MAX_GOLD_COINS] = new Object[]{MAX_GOLD_COINS, false};
+        return pairs;
     }
 
     @Test

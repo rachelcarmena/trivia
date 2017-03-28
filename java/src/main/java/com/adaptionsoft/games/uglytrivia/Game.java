@@ -2,7 +2,15 @@ package com.adaptionsoft.games.uglytrivia;
 
 public class Game {
 
+    public static final int PLAYER_PLACE_LIMIT = 12;
     public static final int MAX_GOLD_COINS = 6;
+
+    public static final String POP = "Pop";
+    public static final String SCIENCE = "Science";
+    public static final String SPORTS = "Sports";
+    public static final String ROCK = "Rock";
+    public static final String[] SUBJECTS = {POP, SCIENCE, SPORTS, ROCK};
+
     private Status status;
     private Questions questions;
     private Players players;
@@ -59,7 +67,7 @@ public class Game {
     private void move(int roll) {
         players.moveCurrentPlayer(roll);
 
-        String currentCategory = questions.currentCategory(players.currentPlayerPlace());
+        String currentCategory = currentCategory(players.currentPlayerPlace());
         String question = questions.getQuestionAndRemoveFromList(currentCategory);
 
         status.informAboutLocationCategoryAndQuestion(players.currentPlayerName(), players.currentPlayerPlace(), currentCategory, question);
@@ -92,5 +100,13 @@ public class Game {
 
     private boolean hasNotMaxGoldCoins() {
         return (players.currentPlayerGoldCoins() < MAX_GOLD_COINS);
+    }
+
+    public static String currentCategory(int place) {
+        for (int index = 0; index < SUBJECTS.length; index++) {
+            if ((place - index) % SUBJECTS.length == 0)
+                return SUBJECTS[index];
+        }
+        return "";
     }
 }
