@@ -1,6 +1,6 @@
 package com.adaptionsoft.games.trivia;
 
-import com.adaptionsoft.games.uglytrivia.Console;
+import com.adaptionsoft.games.uglytrivia.Status;
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.Players;
 import com.adaptionsoft.games.uglytrivia.Questions;
@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Random;
 
 import static com.adaptionsoft.games.trivia.StringIsEqualsAsPreviousInMatcher.isEqualsAsPreviousIn;
@@ -35,7 +34,7 @@ public class RandomGameTests {
     @Mock
     Players players;
     @Mock
-    Console console;
+    Status console;
     private Game aGame;
 
     private Game getGame(Players players) {

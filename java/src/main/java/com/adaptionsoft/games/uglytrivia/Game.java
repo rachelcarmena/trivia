@@ -2,17 +2,17 @@ package com.adaptionsoft.games.uglytrivia;
 
 public class Game {
 
+    private Status status;
     private Questions questions;
     private Players players;
-    private Console console;
 
     public Game() {
-        this(new Players(), new Console(), new Questions());
+        this(new Players(), new Status(new Console()), new Questions());
     }
 
-    public Game(Players players, Console console, Questions questions) {
+    public Game(Players players, Status status, Questions questions) {
         this.players = players;
-        this.console = console;
+        this.status = status;
         this.questions = questions;
     }
 
@@ -23,8 +23,8 @@ public class Game {
     public boolean add(String playerName) {
         players.add(playerName);
 
-        console.informAboutAddedPlayer(playerName);
-        console.informAboutNumberOfPlayers(players.size());
+        status.informAboutAddedPlayer(playerName);
+        status.informAboutNumberOfPlayers(players.size());
         return true;
     }
 
@@ -33,8 +33,8 @@ public class Game {
     }
 
     public void roll(int roll) {
-        console.informAboutTheCurrentPlayer(players.currentPlayerName());
-        console.informAboutTheRoll(roll);
+        status.informAboutTheCurrentPlayer(players.currentPlayerName());
+        status.informAboutTheRoll(roll);
 
         if (!players.currentPlayerIsInPenaltyBox()) {
             move(roll);
@@ -43,12 +43,12 @@ public class Game {
 
         if (shouldGetOutOfPenaltyBox(roll)) {
             players.setGettingOutOfPenaltyBox(true);
-            console.informAboutUserGettingOutOfPenaltyBox(players.currentPlayerName());
+            status.informAboutUserGettingOutOfPenaltyBox(players.currentPlayerName());
             move(roll);
             return;
         }
 
-        console.informAboutNotToGetOutOFPenaltyBox(players.currentPlayerName());
+        status.informAboutNotToGetOutOFPenaltyBox(players.currentPlayerName());
         players.setGettingOutOfPenaltyBox(false);
     }
 
@@ -58,16 +58,16 @@ public class Game {
 
     private void move(int roll) {
         players.moveCurrentPlayer(roll);
-        console.informAboutNewLocation(players.currentPlayerName(), players.currentPlayerPlace());
+        status.informAboutNewLocation(players.currentPlayerName(), players.currentPlayerPlace());
 
         String currentCategory = questions.currentCategory(players.currentPlayerPlace());
-        console.informAboutCategory(currentCategory);
+        status.informAboutCategory(currentCategory);
         askQuestion(currentCategory);
     }
 
     private void askQuestion(String currentCategory) {
         Object question = questions.getQuestionAndRemoveFromList(currentCategory);
-        console.informAboutQuestion(question);
+        status.informAboutQuestion(question);
     }
 
     public boolean wasCorrectlyAnswered() {
@@ -76,9 +76,9 @@ public class Game {
             return true;
         }
 
-        console.informAboutCorrectAnswer();
+        status.informAboutCorrectAnswer();
         players.increaseGoldCoins();
-        console.informAboutGoldCoins(players.currentPlayerName(), players.currentPlayerGoldCoins());
+        status.informAboutGoldCoins(players.currentPlayerName(), players.currentPlayerGoldCoins());
 
         boolean notWinner = hasNotMaxGoldCoins();
         players.nextPlayer();
@@ -87,8 +87,8 @@ public class Game {
     }
 
     public boolean wrongAnswer() {
-        console.informAboutWrongAnswer();
-        console.informAboutUserGettingInPenaltyBox(players.currentPlayerName());
+        status.informAboutWrongAnswer();
+        status.informAboutUserGettingInPenaltyBox(players.currentPlayerName());
         players.movePlayerToPenaltyBox();
 
         players.nextPlayer();
