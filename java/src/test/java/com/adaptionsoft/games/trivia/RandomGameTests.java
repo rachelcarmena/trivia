@@ -34,11 +34,11 @@ public class RandomGameTests {
     @Mock
     Players players;
     @Mock
-    Status console;
+    Status status;
     private Game aGame;
 
     private Game getGame(Players players) {
-        return new Game(players, console, new Questions());
+        return new Game(players, status, new Questions());
     }
 
     @Before
@@ -54,8 +54,8 @@ public class RandomGameTests {
 
         assertThat(aGame.add(PLAYER_NAME), is(true));
 
-        verify(console).informAboutAddedPlayer(PLAYER_NAME);
-        verify(console).informAboutNumberOfPlayers(1);
+        verify(status).informAboutAddedPlayer(PLAYER_NAME);
+        verify(status).informAboutNumberOfPlayers(1);
     }
 
     @Test
@@ -65,9 +65,9 @@ public class RandomGameTests {
         aGame.roll(EVEN_ROLL);
 
         verify(players).setGettingOutOfPenaltyBox(false);
-        verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(console).informAboutTheRoll(EVEN_ROLL);
-        verify(console).informAboutNotToGetOutOFPenaltyBox(PLAYER_NAME);
+        verify(status).informAboutTheCurrentPlayer(PLAYER_NAME);
+        verify(status).informAboutTheRoll(EVEN_ROLL);
+        verify(status).informAboutNotToGetOutOFPenaltyBox(PLAYER_NAME);
     }
 
     @Test
@@ -78,14 +78,14 @@ public class RandomGameTests {
 
         aGame.roll(ODD_ROLL);
 
-        verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(console).informAboutTheRoll(ODD_ROLL);
+        verify(status).informAboutTheCurrentPlayer(PLAYER_NAME);
+        verify(status).informAboutTheRoll(ODD_ROLL);
         verify(players).setGettingOutOfPenaltyBox(true);
-        verify(console).informAboutUserGettingOutOfPenaltyBox(PLAYER_NAME);
+        verify(status).informAboutUserGettingOutOfPenaltyBox(PLAYER_NAME);
         verify(players).moveCurrentPlayer(ODD_ROLL);
-        verify(console).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
-        verify(console).informAboutCategory(category);
-        verify(console).informAboutQuestion(category + " " + FIRST_QUESTION);
+        verify(status).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
+        verify(status).informAboutCategory(category);
+        verify(status).informAboutQuestion(category + " " + FIRST_QUESTION);
     }
 
     @Test
@@ -96,12 +96,12 @@ public class RandomGameTests {
 
         aGame.roll(ANY_ROLL);
 
-        verify(console).informAboutTheCurrentPlayer(PLAYER_NAME);
-        verify(console).informAboutTheRoll(ANY_ROLL);
+        verify(status).informAboutTheCurrentPlayer(PLAYER_NAME);
+        verify(status).informAboutTheRoll(ANY_ROLL);
         verify(players).moveCurrentPlayer(ANY_ROLL);
-        verify(console).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
-        verify(console).informAboutCategory(category);
-        verify(console).informAboutQuestion(category + " " + FIRST_QUESTION);
+        verify(status).informAboutNewLocation(PLAYER_NAME, currentPlayerPlace);
+        verify(status).informAboutCategory(category);
+        verify(status).informAboutQuestion(category + " " + FIRST_QUESTION);
     }
 
     @Test
@@ -113,7 +113,7 @@ public class RandomGameTests {
 
         assertTrue(notWinner);
         verify(players).nextPlayer();
-        verifyNoMoreInteractions(console);
+        verifyNoMoreInteractions(status);
     }
 
     @Test
@@ -126,9 +126,9 @@ public class RandomGameTests {
         boolean notWinner = aGame.wasCorrectlyAnswered();
 
         assertThat(notWinner, is(notWinnerExpectedValue));
-        verify(console).informAboutCorrectAnswer();
+        verify(status).informAboutCorrectAnswer();
         verify(players).increaseGoldCoins();
-        verify(console).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
+        verify(status).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
         verify(players).nextPlayer();
     }
 
@@ -141,9 +141,9 @@ public class RandomGameTests {
         boolean notWinner = aGame.wasCorrectlyAnswered();
 
         assertThat(notWinner, is(notWinnerExpectedValue));
-        verify(console).informAboutCorrectAnswer();
+        verify(status).informAboutCorrectAnswer();
         verify(players).increaseGoldCoins();
-        verify(console).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
+        verify(status).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
         verify(players).nextPlayer();
     }
 
@@ -152,8 +152,8 @@ public class RandomGameTests {
         boolean notWinner = aGame.wrongAnswer();
 
         assertTrue(notWinner);
-        verify(console).informAboutWrongAnswer();
-        verify(console).informAboutUserGettingInPenaltyBox(PLAYER_NAME);
+        verify(status).informAboutWrongAnswer();
+        verify(status).informAboutUserGettingInPenaltyBox(PLAYER_NAME);
         verify(players).movePlayerToPenaltyBox();
         verify(players).nextPlayer();
     }
