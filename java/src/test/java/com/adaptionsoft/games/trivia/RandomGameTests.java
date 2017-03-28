@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Random;
 
 import static com.adaptionsoft.games.trivia.StringIsEqualsAsPreviousInMatcher.isEqualsAsPreviousIn;
@@ -162,7 +163,7 @@ public class RandomGameTests {
     @Parameters
     public void playSeveralGames(long seed) throws IOException {
         String consoleOutput = playGame(seed);
-        assertThat(consoleOutput, isEqualsAsPreviousIn("/tmp/ugly-trivia/test-" + seed + ".expected"));
+        assertThat(consoleOutput, isEqualsAsPreviousIn("test-" + seed + ".expected"));
     }
 
     public Object[] parametersForPlaySeveralGames() {

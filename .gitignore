@@ -4,3 +4,4 @@ scala/out/
 *.class
 .idea/
 *.iml
+java/src/test/resources/*.expected
