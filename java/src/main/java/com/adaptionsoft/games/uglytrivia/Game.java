@@ -60,9 +60,9 @@ public class Game {
         players.moveCurrentPlayer(roll);
 
         String currentCategory = questions.currentCategory(players.currentPlayerPlace());
-        Object question = questions.getQuestionAndRemoveFromList(currentCategory);
+        String question = questions.getQuestionAndRemoveFromList(currentCategory);
 
-        status.informAboutLocationCategoryAndQuestion(players.currentPlayerName(), players.currentPlayerPlace(), currentCategory, question.toString());
+        status.informAboutLocationCategoryAndQuestion(players.currentPlayerName(), players.currentPlayerPlace(), currentCategory, question);
     }
 
     public boolean wasCorrectlyAnswered() {

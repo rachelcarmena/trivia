@@ -1,6 +1,7 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Questions {
     public static final String POP = "Pop";
@@ -9,10 +10,10 @@ public class Questions {
     public static final String ROCK = "Rock";
     public static final String QUESTION_TEXT = " Question ";
 
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    LinkedList<String> popQuestions = new LinkedList<>();
+    LinkedList<String> scienceQuestions = new LinkedList<>();
+    LinkedList<String> sportsQuestions = new LinkedList<>();
+    LinkedList<String> rockQuestions = new LinkedList<>();
 
     public Questions() {
         for (int i = 0; i < 50; i++) {
@@ -27,7 +28,7 @@ public class Questions {
         return category + QUESTION_TEXT + questionNumber;
     }
 
-    Object getQuestionAndRemoveFromList(String category) {
+    String getQuestionAndRemoveFromList(String category) {
         switch (category) {
             case POP:
                 return popQuestions.removeFirst();
