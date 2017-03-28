@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Players {
 
+    public static final int MAX_PLAYER_PLACE = 11;
     private List<Player> players = new ArrayList<>();
     private int currentPlayerIndex = 0;
     private boolean isGettingOutOfPenaltyBox;
@@ -57,8 +58,8 @@ public class Players {
         Player currentPlayer = getCurrentPlayer();
         int currentPlayerPlace = currentPlayer.getPlace();
         currentPlayerPlace += roll;
-        if (currentPlayerPlace > 11){
-            currentPlayerPlace -= 12;
+        if (currentPlayerPlace > MAX_PLAYER_PLACE){
+            currentPlayerPlace -= (MAX_PLAYER_PLACE + 1);
         }
         currentPlayer.setPlace(currentPlayerPlace);
     }
