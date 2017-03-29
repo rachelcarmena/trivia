@@ -5,8 +5,6 @@ import java.util.LinkedList;
 
 public class Questions {
 
-    public static final String QUESTION_TEXT = " Question ";
-
     HashMap<String, LinkedList<String>> questionsBySubject;
 
     public Questions() {
@@ -28,7 +26,7 @@ public class Questions {
     }
 
     private String createQuestion(int questionNumber, String category) {
-        return category + QUESTION_TEXT + questionNumber;
+        return String.format("%s Question %s", category, questionNumber);
     }
 
     String getQuestionAndRemoveFromList(String category) {
