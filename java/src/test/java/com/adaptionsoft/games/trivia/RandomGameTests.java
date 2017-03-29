@@ -1,9 +1,9 @@
 package com.adaptionsoft.games.trivia;
 
-import com.adaptionsoft.games.uglytrivia.Game;
-import com.adaptionsoft.games.uglytrivia.Players;
-import com.adaptionsoft.games.uglytrivia.Questions;
-import com.adaptionsoft.games.uglytrivia.Status;
+import com.adaptionsoft.games.uglytrivia.domain.Game;
+import com.adaptionsoft.games.uglytrivia.domain.Players;
+import com.adaptionsoft.games.uglytrivia.domain.Questions;
+import com.adaptionsoft.games.uglytrivia.delivery.Status;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Before;
@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.Random;
 
 import static com.adaptionsoft.games.trivia.StringIsEqualsAsPreviousInMatcher.isEqualsAsPreviousIn;
-import static com.adaptionsoft.games.uglytrivia.Game.MAX_GOLD_COINS;
-import static com.adaptionsoft.games.uglytrivia.Game.PLAYER_PLACE_LIMIT;
+import static com.adaptionsoft.games.uglytrivia.domain.Game.MAX_GOLD_COINS;
+import static com.adaptionsoft.games.uglytrivia.domain.Game.PLAYER_PLACE_LIMIT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
