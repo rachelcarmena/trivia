@@ -1,7 +1,7 @@
-package com.adaptionsoft.games.trivia.runner.domain;
+package com.adaptionsoft.games.trivia.domain;
 
-import com.adaptionsoft.games.trivia.runner.utils.CircularList;
-import com.adaptionsoft.games.trivia.runner.utils.Node;
+import com.adaptionsoft.games.trivia.utils.CircularList;
+import com.adaptionsoft.games.trivia.utils.Node;
 
 public class Players {
 

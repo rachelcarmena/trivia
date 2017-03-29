@@ -2,7 +2,7 @@
 package com.adaptionsoft.games.trivia.runner;
 import java.util.Random;
 
-import com.adaptionsoft.games.trivia.runner.domain.Game;
+import com.adaptionsoft.games.trivia.domain.Game;
 
 
 public class GameRunner {

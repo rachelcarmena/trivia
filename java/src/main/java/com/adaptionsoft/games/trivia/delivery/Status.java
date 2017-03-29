@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.trivia.runner.delivery;
+package com.adaptionsoft.games.trivia.delivery;
 
 public class Status {
 

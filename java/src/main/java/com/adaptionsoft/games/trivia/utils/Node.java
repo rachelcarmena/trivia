@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.trivia.runner.utils;
+package com.adaptionsoft.games.trivia.utils;
 
 public class Node<T> {
     private Node<T> next;

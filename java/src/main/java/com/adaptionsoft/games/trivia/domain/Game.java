@@ -1,7 +1,7 @@
-package com.adaptionsoft.games.trivia.runner.domain;
+package com.adaptionsoft.games.trivia.domain;
 
-import com.adaptionsoft.games.trivia.runner.delivery.Console;
-import com.adaptionsoft.games.trivia.runner.delivery.Status;
+import com.adaptionsoft.games.trivia.delivery.Console;
+import com.adaptionsoft.games.trivia.delivery.Status;
 
 public class Game {
 

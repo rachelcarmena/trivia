@@ -1,9 +1,9 @@
 package com.adaptionsoft.games.trivia;
 
-import com.adaptionsoft.games.trivia.runner.domain.Game;
-import com.adaptionsoft.games.trivia.runner.domain.Players;
-import com.adaptionsoft.games.trivia.runner.domain.Questions;
-import com.adaptionsoft.games.trivia.runner.delivery.Status;
+import com.adaptionsoft.games.trivia.domain.Game;
+import com.adaptionsoft.games.trivia.domain.Players;
+import com.adaptionsoft.games.trivia.domain.Questions;
+import com.adaptionsoft.games.trivia.delivery.Status;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Before;
@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.Random;
 
 import static com.adaptionsoft.games.trivia.StringIsEqualsAsPreviousInMatcher.isEqualsAsPreviousIn;
-import static com.adaptionsoft.games.trivia.runner.domain.Game.MAX_GOLD_COINS;
-import static com.adaptionsoft.games.trivia.runner.domain.Game.PLAYER_PLACE_LIMIT;
+import static com.adaptionsoft.games.trivia.domain.Game.MAX_GOLD_COINS;
+import static com.adaptionsoft.games.trivia.domain.Game.PLAYER_PLACE_LIMIT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;

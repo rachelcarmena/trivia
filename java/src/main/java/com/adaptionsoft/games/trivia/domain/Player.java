@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.trivia.runner.domain;
+package com.adaptionsoft.games.trivia.domain;
 
 public class Player {
 

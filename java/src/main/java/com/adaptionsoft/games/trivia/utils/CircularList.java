@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.trivia.runner.utils;
+package com.adaptionsoft.games.trivia.utils;
 
 public class CircularList<T> {
 

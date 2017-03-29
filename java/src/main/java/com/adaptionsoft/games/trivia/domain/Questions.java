@@ -1,4 +1,4 @@
-package com.adaptionsoft.games.trivia.runner.domain;
+package com.adaptionsoft.games.trivia.domain;
 
 import java.util.HashMap;
 import java.util.LinkedList;
