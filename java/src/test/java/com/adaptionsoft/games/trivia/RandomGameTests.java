@@ -9,6 +9,7 @@ import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 
 import java.io.IOException;
@@ -21,8 +22,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(JUnitParamsRunner.class)
@@ -37,6 +37,7 @@ public class RandomGameTests {
     Players players;
     @Mock
     Status status;
+    InOrder inOrder;
     private Game aGame;
 
     private Game getGame(Players players) {
@@ -48,6 +49,7 @@ public class RandomGameTests {
         initMocks(this);
         aGame = getGame(players);
         given(players.currentPlayerName()).willReturn(PLAYER_NAME);
+        inOrder = inOrder(players, status);
     }
 
     @Test
@@ -56,7 +58,8 @@ public class RandomGameTests {
 
         assertThat(aGame.add(PLAYER_NAME), is(true));
 
-        verify(status).informAboutAddedPlayer(PLAYER_NAME, 1);
+        inOrder.verify(status).informAboutAddedPlayer(PLAYER_NAME, 1);
+        inOrder.verifyNoMoreInteractions();
     }
 
     @Test
@@ -65,9 +68,10 @@ public class RandomGameTests {
 
         aGame.roll(EVEN_ROLL);
 
-        verify(players).setGettingOutOfPenaltyBox(false);
-        verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, EVEN_ROLL);
-        verify(status).informAboutNotToGetOutOFPenaltyBox(PLAYER_NAME);
+        inOrder.verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, EVEN_ROLL);
+        inOrder.verify(status).informAboutNotToGetOutOFPenaltyBox(PLAYER_NAME);
+        inOrder.verify(players).setGettingOutOfPenaltyBox(false);
+        inOrder.verifyNoMoreInteractions();
     }
 
     @Test
@@ -78,11 +82,11 @@ public class RandomGameTests {
 
         aGame.roll(ODD_ROLL);
 
-        verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, ODD_ROLL);
-        verify(players).setGettingOutOfPenaltyBox(true);
-        verify(status).informAboutUserGettingOutOfPenaltyBox(PLAYER_NAME);
-        verify(players).moveCurrentPlayer(ODD_ROLL);
-        verify(status).informAboutLocationCategoryAndQuestion(PLAYER_NAME, currentPlayerPlace, category, category + " " + FIRST_QUESTION);
+        inOrder.verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, ODD_ROLL);
+        inOrder.verify(players).setGettingOutOfPenaltyBox(true);
+        inOrder.verify(status).informAboutUserGettingOutOfPenaltyBox(PLAYER_NAME);
+        inOrder.verify(players).moveCurrentPlayer(ODD_ROLL);
+        inOrder.verify(status).informAboutLocationCategoryAndQuestion(PLAYER_NAME, currentPlayerPlace, category, category + " " + FIRST_QUESTION);
     }
 
     @Test
@@ -93,9 +97,9 @@ public class RandomGameTests {
 
         aGame.roll(ANY_ROLL);
 
-        verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, ANY_ROLL);
-        verify(players).moveCurrentPlayer(ANY_ROLL);
-        verify(status).informAboutLocationCategoryAndQuestion(PLAYER_NAME, currentPlayerPlace, category, category + " " + FIRST_QUESTION);
+        inOrder.verify(status).informAboutCurrentPlayerAndRoll(PLAYER_NAME, ANY_ROLL);
+        inOrder.verify(players).moveCurrentPlayer(ANY_ROLL);
+        inOrder.verify(status).informAboutLocationCategoryAndQuestion(PLAYER_NAME, currentPlayerPlace, category, category + " " + FIRST_QUESTION);
     }
 
     private Object get_pairs_of_place_and_category() {
@@ -114,8 +118,8 @@ public class RandomGameTests {
         boolean notWinner = aGame.wasCorrectlyAnswered();
 
         assertTrue(notWinner);
-        verify(players).nextPlayer();
-        verifyNoMoreInteractions(status);
+        inOrder.verify(players).nextPlayer();
+        inOrder.verifyNoMoreInteractions();
     }
 
     @Test
@@ -128,10 +132,11 @@ public class RandomGameTests {
         boolean notWinner = aGame.wasCorrectlyAnswered();
 
         assertThat(notWinner, is(notWinnerExpectedValue));
-        verify(status).informAboutCorrectAnswer();
-        verify(players).increaseGoldCoins();
-        verify(status).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
-        verify(players).nextPlayer();
+        inOrder.verify(status).informAboutCorrectAnswer();
+        inOrder.verify(players).increaseGoldCoins();
+        inOrder.verify(status).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
+        inOrder.verify(players).nextPlayer();
+        inOrder.verifyNoMoreInteractions();
     }
 
     @Test
@@ -143,10 +148,11 @@ public class RandomGameTests {
         boolean notWinner = aGame.wasCorrectlyAnswered();
 
         assertThat(notWinner, is(notWinnerExpectedValue));
-        verify(status).informAboutCorrectAnswer();
-        verify(players).increaseGoldCoins();
-        verify(status).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
-        verify(players).nextPlayer();
+        inOrder.verify(status).informAboutCorrectAnswer();
+        inOrder.verify(players).increaseGoldCoins();
+        inOrder.verify(status).informAboutGoldCoins(PLAYER_NAME, coinsNumber);
+        inOrder.verify(players).nextPlayer();
+        inOrder.verifyNoMoreInteractions();
     }
 
     private Object get_pairs_of_coins_and_winner() {
@@ -163,10 +169,11 @@ public class RandomGameTests {
         boolean notWinner = aGame.wrongAnswer();
 
         assertTrue(notWinner);
-        verify(status).informAboutWrongAnswer();
-        verify(status).informAboutUserGettingInPenaltyBox(PLAYER_NAME);
-        verify(players).movePlayerToPenaltyBox();
-        verify(players).nextPlayer();
+        inOrder.verify(status).informAboutWrongAnswer();
+        inOrder.verify(status).informAboutUserGettingInPenaltyBox(PLAYER_NAME);
+        inOrder.verify(players).movePlayerToPenaltyBox();
+        inOrder.verify(players).nextPlayer();
+        inOrder.verifyNoMoreInteractions();
     }
 
     @Test
