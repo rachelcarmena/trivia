@@ -1,12 +1,8 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Players {
 
-    private List<Player> players = new ArrayList<>();
-    private int currentPlayerIndex = 0;
+    private CircularList<Player> players = new CircularList<>();
     private boolean isGettingOutOfPenaltyBox;
 
     public boolean isGettingOutOfPenaltyBox() {
@@ -46,7 +42,8 @@ public class Players {
 
     public void add(String playerName) {
         Player player = new Player(playerName);
-        players.add(player);
+        Node<Player> node = new Node(player);
+        players.add(node);
     }
 
     int size() {
@@ -57,7 +54,7 @@ public class Players {
         Player currentPlayer = getCurrentPlayer();
         int currentPlayerPlace = currentPlayer.getPlace();
         currentPlayerPlace += roll;
-        if (currentPlayerPlace >= Game.PLAYER_PLACE_LIMIT){
+        if (currentPlayerPlace >= Game.PLAYER_PLACE_LIMIT) {
             currentPlayerPlace -= Game.PLAYER_PLACE_LIMIT;
         }
         currentPlayer.setPlace(currentPlayerPlace);
@@ -69,11 +66,10 @@ public class Players {
     }
 
     public void nextPlayer() {
-        this.currentPlayerIndex += 1;
-        if (currentPlayerIndex == size()) this.currentPlayerIndex = 0;
+        players.next();
     }
 
     private Player getCurrentPlayer() {
-        return players.get(currentPlayerIndex);
+        return players.current();
     }
 }
