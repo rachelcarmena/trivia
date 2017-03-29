@@ -1,23 +1,30 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Questions {
 
     public static final String QUESTION_TEXT = " Question ";
 
-    LinkedList<String> popQuestions = new LinkedList<>();
-    LinkedList<String> scienceQuestions = new LinkedList<>();
-    LinkedList<String> sportsQuestions = new LinkedList<>();
-    LinkedList<String> rockQuestions = new LinkedList<>();
+    HashMap<String, LinkedList<String>> questionsBySubject;
 
     public Questions() {
-        for (int i = 0; i < 50; i++) {
-            popQuestions.addLast(createQuestion(i, Game.POP));
-            scienceQuestions.addLast((createQuestion(i, Game.SCIENCE)));
-            sportsQuestions.addLast((createQuestion(i, Game.SPORTS)));
-            rockQuestions.addLast(createQuestion(i, Game.ROCK));
+        questionsBySubject = new HashMap<>();
+        for (int index = 0; index < Game.SUBJECTS.length; index++) {
+            String subject = Game.SUBJECTS[index];
+            LinkedList<String> questionsList = createQuestionsListFor(subject);
+            questionsBySubject.put(subject, questionsList);
         }
+    }
+
+    private LinkedList<String> createQuestionsListFor(String subject) {
+        LinkedList<String> questionsList = new LinkedList<>();
+        for (int questionNumber = 0; questionNumber < 50; questionNumber++) {
+            String question = createQuestion(questionNumber, subject);
+            questionsList.addLast(question);
+        }
+        return questionsList;
     }
 
     private String createQuestion(int questionNumber, String category) {
@@ -25,16 +32,7 @@ public class Questions {
     }
 
     String getQuestionAndRemoveFromList(String category) {
-        switch (category) {
-            case Game.POP:
-                return popQuestions.removeFirst();
-            case Game.SCIENCE:
-                return scienceQuestions.removeFirst();
-            case Game.SPORTS:
-                return sportsQuestions.removeFirst();
-            case Game.ROCK:
-                return rockQuestions.removeFirst();
-        }
-        return "";
+        LinkedList<String> questionsList = questionsBySubject.get(category);
+        return questionsList.removeFirst();
     }
 }
