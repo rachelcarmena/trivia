@@ -32,8 +32,7 @@ public class Game {
     public boolean add(String playerName) {
         players.add(playerName);
 
-        status.informAboutAddedPlayer(playerName);
-        status.informAboutNumberOfPlayers(players.size());
+        status.informAboutAddedPlayer(playerName, players.size());
         return true;
     }
 

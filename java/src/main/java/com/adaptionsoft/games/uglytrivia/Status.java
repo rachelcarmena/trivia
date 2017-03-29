@@ -16,11 +16,8 @@ public class Status {
         console.print(currentPlayerName + " is getting out of the penalty box");
     }
 
-    public void informAboutAddedPlayer(String playerName) {
+    public void informAboutAddedPlayer(String playerName, int size) {
         console.print(playerName + " was added");
-    }
-
-    public void informAboutNumberOfPlayers(int size) {
         console.print("They are player number " + size);
     }
 

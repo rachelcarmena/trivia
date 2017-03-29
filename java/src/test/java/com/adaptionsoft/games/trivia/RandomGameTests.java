@@ -56,8 +56,7 @@ public class RandomGameTests {
 
         assertThat(aGame.add(PLAYER_NAME), is(true));
 
-        verify(status).informAboutAddedPlayer(PLAYER_NAME);
-        verify(status).informAboutNumberOfPlayers(1);
+        verify(status).informAboutAddedPlayer(PLAYER_NAME, 1);
     }
 
     @Test
